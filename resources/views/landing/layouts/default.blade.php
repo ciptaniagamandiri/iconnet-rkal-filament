@@ -10,5 +10,6 @@
 <body>
     @include('landing.components.navbar')
     @yield('content')
+    @include('landing.components.footer')
 </body>
 </html>

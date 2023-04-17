@@ -3,8 +3,7 @@
         <div class="flex h-16 items-center justify-between">
             <div class="flex-1 flex items-center justify-between">
                 <div class="flex-shrink-0">
-                    <img class="block h-8 w-auto lg:hidden" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company">
-                    <img class="hidden h-8 w-auto lg:block" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company">
+                    <img class="block h-8 w-auto" src="/assets/icon-logo.png" alt="Your Company">
                 </div>
                 <div class="hidden sm:ml-6 sm:block">
                     <div class="flex space-x-4">

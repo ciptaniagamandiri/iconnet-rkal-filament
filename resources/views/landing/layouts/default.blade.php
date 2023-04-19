@@ -9,7 +9,9 @@
 </head>
 <body>
     @include('landing.components.navbar')
-    @yield('content')
+    <div class="min-h-screen">
+        @yield('content')
+    </div>
     @include('landing.components.footer')
 </body>
 </html>

@@ -15,3 +15,6 @@ use App\Http\Controllers\Web;
 */
 
 Route::get('/', [Web\LandingController::class, 'index'])->name('landing');
+Route::get('/products', function(){
+    return view('landing.product');
+});

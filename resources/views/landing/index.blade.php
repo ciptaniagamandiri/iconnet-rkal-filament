@@ -1,7 +1,6 @@
 @extends('landing.layouts.default')
 @section('content')
-<!-- carousel -->
-@include('landing.components.carousel')
+<x-carousel />
 <!-- about -->
 <div class="max-w-7xl mx-auto px-6 pb-10">
     <div class="py-10 max-w-4xl mx-auto text-center space-y-4 border-b-2 border-dotted">

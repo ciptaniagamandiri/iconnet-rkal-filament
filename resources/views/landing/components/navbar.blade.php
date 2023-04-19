@@ -32,10 +32,10 @@
     <!-- Mobile menu, show/hide based on menu state. -->
     <div class="sm:hidden" id="mobile-menu" x-show="menuToggle">
         <div class="space-y-1 px-2 pb-3 pt-2">
-            <a href="/" class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white">Home</a>
-            <a href="/products" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Produk & Promo</a>
-            <a href="/area" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Cakupan Area</a>
-            <a href="/contact" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Hubungi kami</a>
+            <a href="/" class="block rounded-md px-3 py-2 text-base font-medium text-white {{ request()->routeIs('landing') ? 'bg-gray-900' : '' }} hover:bg-gray-700">Home</a>
+            <a href="/products" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 {{ request()->routeIs('landing.product') ? 'bg-gray-900' : '' }} hover:bg-gray-700 hover:text-white">Produk & Promo</a>
+            <a href="/area" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 {{ request()->routeIs('landing.area') ? 'bg-gray-900' : '' }} hover:bg-gray-700 hover:text-white">Cakupan Area</a>
+            <a href="/contact" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 {{ request()->routeIs('landing.contact') ? 'bg-gray-900' : '' }} hover:bg-gray-700 hover:text-white">Hubungi kami</a>
         </div>
     </div>
 </nav>

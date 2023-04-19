@@ -9,8 +9,8 @@
                     <div class="flex space-x-4">
                         <a href="/" class="rounded-md px-3 py-2 text-sm font-medium text-white hover:text-brands-secondary">Home</a>
                         <a href="/products" class="rounded-md px-3 py-2 text-sm font-medium text-white hover:text-brands-secondary">Produk & Promo</a>
-                        <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-white hover:text-brands-secondary">Cakupan Area</a>
-                        <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-white hover:text-brands-secondary">Hubungi kami</a>
+                        <a href="/area" class="rounded-md px-3 py-2 text-sm font-medium text-white hover:text-brands-secondary">Cakupan Area</a>
+                        <a href="/contact" class="rounded-md px-3 py-2 text-sm font-medium text-white hover:text-brands-secondary">Hubungi kami</a>
                     </div>
                 </div>
             </div>
@@ -34,8 +34,8 @@
         <div class="space-y-1 px-2 pb-3 pt-2">
             <a href="/" class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white">Home</a>
             <a href="/products" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Produk & Promo</a>
-            <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Cakupan Area</a>
-            <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Hubungi kami</a>
+            <a href="/area" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Cakupan Area</a>
+            <a href="/contact" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Hubungi kami</a>
         </div>
     </div>
 </nav>

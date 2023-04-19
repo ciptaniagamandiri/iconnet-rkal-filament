@@ -34,7 +34,7 @@
     </div>
 </div>
 <!-- pricing -->
-@include('landing.components.pricing')
+<x-landing.pricing />
 <!-- testimonial -->
-@include('landing.components.testimonial')
+<x-landing.testimonial />
 @endsection

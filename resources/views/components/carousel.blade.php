@@ -7,7 +7,7 @@
     loop() {
         setInterval(() => {
             this.active == 0 ?  this.active = + 1 : this.active = 0
-        }, 4000)
+        }, 5000)
     }
 }" x-init="loop">
     <div class="lg:h-[80vh] w-full bg-brands-primary/80 overflow-hidden">

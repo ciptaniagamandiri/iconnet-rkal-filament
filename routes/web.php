@@ -18,9 +18,9 @@ Route::get('/', [Web\LandingController::class, 'index'])->name('landing');
 Route::get('/area', [Web\AreaController::class, 'index'])->name('landing.area');
 Route::get('/products', function(){
     return view('landing.product');
-});
+})->name('landing.product');
 
 Route::get('/contact', function(){
     return view('landing.contact');
-});
+})->name('landing.contact');
 

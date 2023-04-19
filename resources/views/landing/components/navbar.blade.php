@@ -7,10 +7,10 @@
                 </a>
                 <div class="hidden sm:ml-6 sm:block">
                     <div class="flex space-x-4">
-                        <a href="/" class="rounded-md px-3 py-2 text-sm font-medium text-white hover:text-brands-secondary">Home</a>
-                        <a href="/products" class="rounded-md px-3 py-2 text-sm font-medium text-white hover:text-brands-secondary">Produk & Promo</a>
-                        <a href="/area" class="rounded-md px-3 py-2 text-sm font-medium text-white hover:text-brands-secondary">Cakupan Area</a>
-                        <a href="/contact" class="rounded-md px-3 py-2 text-sm font-medium text-white hover:text-brands-secondary">Hubungi kami</a>
+                        <a href="/" class="rounded-md px-3 py-2 text-sm font-medium  hover:text-brands-secondary {{request()->routeIs('landing') ? 'text-brands-secondary' : 'text-white'}}">Home</a>
+                        <a href="/products" class="rounded-md px-3 py-2 text-sm font-medium {{request()->routeIs('landing.product') ? 'text-brands-secondary' : 'text-white'}} hover:text-brands-secondary">Produk & Promo </a>
+                        <a href="/area" class="rounded-md px-3 py-2 text-sm font-medium {{request()->routeIs('landing.area') ? 'text-brands-secondary' : 'text-white'}} hover:text-brands-secondary">Cakupan Area</a>
+                        <a href="/contact" class="rounded-md px-3 py-2 text-sm font-medium {{request()->routeIs('landing.contact') ? 'text-brands-secondary' : 'text-white'}} hover:text-brands-secondary">Hubungi kami</a>
                     </div>
                 </div>
             </div>

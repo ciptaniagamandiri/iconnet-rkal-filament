@@ -4,7 +4,10 @@ namespace App\Providers;
 
 use App\Filament\Resources\CategoryResource;
 use App\Filament\Resources\ContactResource;
+use App\Filament\Resources\CarouselResource;
 use App\Filament\Resources\PostResource;
+use App\Filament\Resources\ProductResource;
+use App\Filament\Resources\TestimonyResource;
 use App\Filament\Resources\SocialMediaResource;
 use App\Filament\Resources\UserResource;
 use Filament\Facades\Filament;
@@ -49,8 +52,15 @@ class AppServiceProvider extends ServiceProvider
                 NavigationGroup::make('Blogs')
                     ->collapsible(false)
                     ->items([
+                        ...CarouselResource::getNavigationItems(),
                         ...PostResource::getNavigationItems(),
                         ...CategoryResource::getNavigationItems(),
+                    ]),
+                NavigationGroup::make('')
+                    ->collapsible(false)
+                    ->items([
+                        ...ProductResource::getNavigationItems(),
+                        ...TestimonyResource::getNavigationItems(),
                     ]),
                 NavigationGroup::make('Settings')
                     ->collapsible(false)

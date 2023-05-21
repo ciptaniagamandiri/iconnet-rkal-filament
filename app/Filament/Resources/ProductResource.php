@@ -6,6 +6,7 @@ use App\Filament\Resources\ProductResource\Pages;
 use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Product;
 use Filament\Forms;
+use Filament\Forms\Components\Card;
 use Filament\Resources\Form;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
@@ -35,17 +36,25 @@ class ProductResource extends Resource
     {
         return $form
             ->schema([
-                FileUpload::make('thumbnail')
-                    ->directory('products')
-                    ->required(),
-                TextInput::make('price')
-                    ->numeric()
-                    ->required(),
-                RichEditor::make('desc')
-                    ->required()
-                    ->maxLength(65535),
+                Card::make()
+                    ->schema([
+                        FileUpload::make('thumbnail')
+                            ->directory('products')
+                            ->required(),
+                        TextInput::make('price')
+                            ->numeric()
+                            ->required(),
+                    ]),
+                Card::make()
+                    ->schema([
+                        RichEditor::make('desc')
+                            ->required()
+                            ->columnSpan(2)
+                            ->maxLength(65535),
+                    ]),
                 Toggle::make('status')
                     ->required(),
+
             ]);
     }
 
@@ -76,14 +85,14 @@ class ProductResource extends Resource
                 RestoreBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -91,8 +100,8 @@ class ProductResource extends Resource
             'create' => Pages\CreateProduct::route('/create'),
             'edit' => Pages\EditProduct::route('/{record}/edit'),
         ];
-    }    
-    
+    }
+
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()

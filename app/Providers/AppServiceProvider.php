@@ -64,15 +64,15 @@ class AppServiceProvider extends ServiceProvider
                         ...FormregistrationResource::getNavigationItems(),
                         ...TestimonyResource::getNavigationItems(),
                     ]),
-                NavigationGroup::make('Settings')
-                    ->collapsible(false)
-                    ->items([
-                        ...SocialMediaResource::getNavigationItems(),
-                    ]),
+                // NavigationGroup::make('Settings')
+                //     ->collapsible(false)
+                //     ->items([
+                //         ...SocialMediaResource::getNavigationItems(),
+                //     ]),
                 NavigationGroup::make('')
                     ->collapsible(false)
                     ->items([
-                        ...ContactResource::getNavigationItems(),
+                        // ...ContactResource::getNavigationItems(),
                         ...UserResource::getNavigationItems(),
                     ])
             ]);

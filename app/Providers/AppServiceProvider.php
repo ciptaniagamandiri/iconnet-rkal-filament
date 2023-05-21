@@ -7,6 +7,7 @@ use App\Filament\Resources\ContactResource;
 use App\Filament\Resources\CarouselResource;
 use App\Filament\Resources\PostResource;
 use App\Filament\Resources\ProductResource;
+use App\Filament\Resources\FormregistrationResource;
 use App\Filament\Resources\TestimonyResource;
 use App\Filament\Resources\SocialMediaResource;
 use App\Filament\Resources\UserResource;
@@ -60,6 +61,7 @@ class AppServiceProvider extends ServiceProvider
                     ->collapsible(false)
                     ->items([
                         ...ProductResource::getNavigationItems(),
+                        ...FormregistrationResource::getNavigationItems(),
                         ...TestimonyResource::getNavigationItems(),
                     ]),
                 NavigationGroup::make('Settings')

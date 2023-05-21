@@ -19,8 +19,9 @@ Route::get('/area', [Web\AreaController::class, 'index'])->name('landing.area');
 Route::get('/products', function(){
     return view('landing.product');
 })->name('landing.product');
-
 Route::get('/contact', function(){
     return view('landing.contact');
 })->name('landing.contact');
+Route::post('/form', [Web\FormregistrationController::class, 'form'])->name('form.store');
+
 

@@ -30,7 +30,9 @@ class FormregistrationResource extends Resource
 {
     protected static ?string $model = Formregistration::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-document';
+
+    protected static ?string $navigationLabel = 'Form Registration';
 
     public static function form(Form $form): Form
     {

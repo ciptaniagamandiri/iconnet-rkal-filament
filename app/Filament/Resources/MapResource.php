@@ -2,15 +2,17 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CarouselResource\Pages;
-use App\Filament\Resources\CarouselResource\RelationManagers;
-use App\Models\Carousel;
+use App\Filament\Resources\MapResource\Pages;
+use App\Filament\Resources\MapResource\RelationManagers;
+use App\Models\Coverage\Map;
+use App\Models\Province;
 use Filament\Forms;
 use Filament\Resources\Form;
+use Filament\Resources\Resource;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
-use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\ImageColumn;
@@ -24,22 +26,40 @@ use Filament\Tables\Actions\RestoreBulkAction;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class CarouselResource extends Resource
+class MapResource extends Resource
 {
-    protected static ?string $model = Carousel::class;
+    protected static ?string $model = Map::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-camera';
+    protected static ?string $navigationIcon = 'heroicon-o-map';
+
+    protected static ?string $navigationLabel = 'Map';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 TextInput::make('title')
+                    ->label('Map Title')
                     ->required()
                     ->maxLength(255),
                 FileUpload::make('file')
-                    ->directory('carousels')
+                    ->label('Map File')
+                    ->directory('files')
                     ->required(),
+                Select::make('type')
+                    ->options([
+                        'Select Status' => 'Select Status',
+                        'Pulau Kalimantan' => 'Pulau Kalimantan',
+                        'Provinsi' => 'Provinsi',
+                    ])
+                    ->disablePlaceholderSelection()
+                    ->required(),
+                Select::make('province_id')
+                    ->label('Province')
+                    ->options(Province::whereIn('id', [61,62,63,64,65])
+                        ->get()
+                        ->pluck('name', 'id'))
+                    ->searchable(),
                 Toggle::make('status')
                     ->required(),
             ]);
@@ -51,6 +71,8 @@ class CarouselResource extends Resource
             ->columns([
                 TextColumn::make('title'),
                 ImageColumn::make('file'),
+                TextColumn::make('type'),
+                TextColumn::make('province.name'),
                 IconColumn::make('status')
                     ->boolean(),
                 TextColumn::make('deleted_at')
@@ -83,9 +105,9 @@ class CarouselResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCarousels::route('/'),
-            'create' => Pages\CreateCarousel::route('/create'),
-            'edit' => Pages\EditCarousel::route('/{record}/edit'),
+            'index' => Pages\ListMaps::route('/'),
+            'create' => Pages\CreateMap::route('/create'),
+            'edit' => Pages\EditMap::route('/{record}/edit'),
         ];
     }    
     

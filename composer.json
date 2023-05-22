@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "azishapidin/indoregion": "^3.0",
         "coderflexx/laravisit": "^1.4",
         "filament/filament": "^2.0",
         "filament/forms": "^2.17",

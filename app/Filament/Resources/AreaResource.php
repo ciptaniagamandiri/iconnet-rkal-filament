@@ -18,7 +18,6 @@ use Filament\Forms\Components\Toggle;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\DeleteBulkAction;
@@ -33,7 +32,7 @@ class AreaResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
-    protected static ?string $navigationLabel = 'Area';
+    protected static ?string $navigationLabel = 'Area Coverage';
 
     
     public static function form(Form $form): Form
@@ -44,25 +43,25 @@ class AreaResource extends Resource
         return $form
             ->schema([
                 Select::make('province_id')
-                    ->label('Province')
+                    ->label('Provinsi')
                     ->options(Province::whereIn('id', [61,62,63,64,65])
                         ->get()
                         ->pluck('name', 'id'))
                     ->searchable(),
                 Select::make('regency_id')
-                    ->label('City')
+                    ->label('Kota')
                     ->options(Regency::whereIn('province_id', $province)
                         ->get()
                         ->pluck('name', 'id'))
                     ->searchable(),
                 Select::make('district_id')
-                    ->label('District')
+                    ->label('Kecamatan')
                     ->options(District::whereIn('regency_id',$regency)
                         ->get()
                         ->pluck('name', 'id'))
                     ->searchable(),
                 Select::make('village_id')
-                    ->label('Village')
+                    ->label('Kelurahan')
                     ->options(Village::whereIn('district_id',$district)
                         ->get()
                         ->pluck('name', 'id'))
@@ -72,6 +71,7 @@ class AreaResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Toggle::make('status')
+                    ->label('Is Active')
                     ->required(),
             ]);
     }
@@ -80,13 +80,19 @@ class AreaResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('province.name'),
-                TextColumn::make('regency.name'),
-                TextColumn::make('district.name'),
-                TextColumn::make('village.name'),
-                TextColumn::make('name'),
-                IconColumn::make('status')
-                    ->boolean(),
+                TextColumn::make('province.name')->label('Provinsi'),
+                TextColumn::make('regency.name')->label('Kota'),
+                TextColumn::make('district.name')->label('Kecamatan'),
+                TextColumn::make('village.name')->label('Kelurahan'),
+                TextColumn::make('name')->label('Area'),
+                TextColumn::make('status')
+                    ->label('Is Active')->enum([
+                    0 => 'Non Active',
+                    1 => 'Active',
+                ]),
+                TextColumn::make('created_at')
+                    ->label('Created')
+                    ->dateTime('d-m-Y H:m:s'),
             ])
             ->filters([
                 TrashedFilter::make(),

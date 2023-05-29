@@ -14,7 +14,6 @@ use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\DeleteBulkAction;
@@ -44,6 +43,7 @@ class TestimonyResource extends Resource
                     ->required()
                     ->maxLength(65535),
                 Toggle::make('status')
+                    ->label('Publish Now')
                     ->required(),
             ]);
     }
@@ -54,12 +54,14 @@ class TestimonyResource extends Resource
             ->columns([
                 TextColumn::make('title'),
                 TextColumn::make('link'),
-                IconColumn::make('status')
-                    ->boolean(),
+                TextColumn::make('status')
+                    ->label('Is Published')->enum([
+                    0 => 'Draft',
+                    1 => 'Published',
+                ]),
                 TextColumn::make('created_at')
-                    ->dateTime(),
-                TextColumn::make('updated_at')
-                    ->dateTime(),
+                    ->label('Created')
+                    ->dateTime('d-m-Y H:m:s'),
             ])
             ->filters([
                 TrashedFilter::make(),

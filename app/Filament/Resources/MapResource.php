@@ -17,7 +17,6 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\DeleteBulkAction;
@@ -32,7 +31,7 @@ class MapResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-map';
 
-    protected static ?string $navigationLabel = 'Map';
+    protected static ?string $navigationLabel = 'Map Coverage';
 
     public static function form(Form $form): Form
     {
@@ -61,6 +60,7 @@ class MapResource extends Resource
                         ->pluck('name', 'id'))
                     ->searchable(),
                 Toggle::make('status')
+                    ->label('Is Active')
                     ->required(),
             ]);
     }
@@ -73,14 +73,14 @@ class MapResource extends Resource
                 ImageColumn::make('file'),
                 TextColumn::make('type'),
                 TextColumn::make('province.name'),
-                IconColumn::make('status')
-                    ->boolean(),
-                TextColumn::make('deleted_at')
-                    ->dateTime(),
+                TextColumn::make('status')
+                    ->label('Is Active')->enum([
+                    0 => 'Non Active',
+                    1 => 'Active',
+                ]),
                 TextColumn::make('created_at')
-                    ->dateTime(),
-                TextColumn::make('updated_at')
-                    ->dateTime(),
+                    ->label('Created')
+                    ->dateTime('d-m-Y H:m:s'),
             ])
             ->filters([
                 TrashedFilter::make(),

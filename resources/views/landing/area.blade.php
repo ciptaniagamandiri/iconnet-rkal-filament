@@ -13,7 +13,8 @@
 </div>
 <div class="max-w-7xl mx-auto">
     <div class="py-10 px-5">
-        <img src="https://iconnet.id/img/New%20Coverage%20v2-02.cf820d5e.png" class="mx-auto w-full" alt="">
+        {{-- <img src="https://iconnet.id/img/New%20Coverage%20v2-02.cf820d5e.png" class="mx-auto w-full" alt=""> --}}
+        <img src="/assets/Kalimantan.png" class="mx-auto w-full" alt="">
     </div>
 </div>
 @endsection

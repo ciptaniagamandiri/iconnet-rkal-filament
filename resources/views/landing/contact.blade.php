@@ -12,7 +12,7 @@
     <img src="https://images.unsplash.com/photo-1560264418-c4445382edbc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80" alt="" class="h-full w-full object-cover object-center">
 </div>
 <div class="max-w-7xl mx-auto py-10 px-5">
-    <div class="grid grid-cols-1 gap-4 md:grid-cols-3 place-content-center">
+    <div class="grid grid-cols-1 gap-2 md:grid-cols-2 place-content-center">
         <!-- call center -->
         <a href="tel:150678" class="p-4 bg-gray-100 rounded-xl flex items-center space-x-4 group hover:bg-brands-primary overflow-hidden">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-10 lg:w-20 text-gray-500 group-hover:text-white flex-shrink-0" viewBox="0 0 24 24">
@@ -63,7 +63,7 @@
                 <h1 class="text-lg lg:text-2xl font-medium text-gray-900 group-hover:text-white"> cc.iconnet@iconpln.co.id </h1>
             </div>
         </div> -->
-        <a href="https://iconnet.id/" target="_blank" class="p-4 bg-gray-100 rounded-xl flex items-center space-x-4 group hover:bg-brands-primary overflow-hidden">
+        {{-- <a href="https://iconnet.id/" target="_blank" class="p-4 bg-gray-100 rounded-xl flex items-center space-x-4 group hover:bg-brands-primary overflow-hidden">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-10 lg:w-20 text-gray-500 group-hover:text-white flex-shrink-0" viewBox="0 0 24 24">
                 <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
                     <path d="M8 5H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h5.697M18 14v4h4m-4-7V7a2 2 0 0 0-2-2h-2" />
@@ -74,8 +74,8 @@
                 <p class="text-gray-700 group-hover:text-white">Live Chat</p>
                 <h1 class="text-lg lg:text-2xl font-medium text-gray-900 group-hover:text-white">iconnet.id  </h1>
             </div>
-        </a>
+        </a> --}}
     </div>
 </div>
-<x-landing.testimonial />
+{{-- <x-landing.testimonial /> --}}
 @endsection

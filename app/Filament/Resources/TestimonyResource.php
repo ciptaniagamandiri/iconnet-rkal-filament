@@ -40,6 +40,12 @@ class TestimonyResource extends Resource
                     ->required()
                     ->maxLength(255),
                 RichEditor::make('desc')
+                    ->toolbarButtons([
+                        'bold',
+                        'italic',
+                        'redo',
+                        'undo',
+                    ])
                     ->required()
                     ->maxLength(65535),
                 Toggle::make('status')
@@ -56,9 +62,9 @@ class TestimonyResource extends Resource
                 TextColumn::make('link'),
                 TextColumn::make('status')
                     ->label('Is Published')->enum([
-                    0 => 'Draft',
-                    1 => 'Published',
-                ]),
+                        0 => 'Draft',
+                        1 => 'Published',
+                    ]),
                 TextColumn::make('created_at')
                     ->label('Created')
                     ->dateTime('d-m-Y H:m:s'),
@@ -75,14 +81,14 @@ class TestimonyResource extends Resource
                 RestoreBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -90,8 +96,8 @@ class TestimonyResource extends Resource
             'create' => Pages\CreateTestimony::route('/create'),
             'edit' => Pages\EditTestimony::route('/{record}/edit'),
         ];
-    }    
-    
+    }
+
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()

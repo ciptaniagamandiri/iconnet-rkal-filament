@@ -9,6 +9,7 @@ use Filament\Forms;
 use Filament\Forms\Components\Card;
 use Filament\Resources\Form;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\RichEditor;
@@ -59,13 +60,28 @@ class ProductResource extends Resource
                 Card::make()
                     ->schema([
                         RichEditor::make('desc')
+                            ->toolbarButtons([
+                                'bold',
+                                'italic',
+                                'redo',
+                                'undo',
+                            ])
                             ->required()
                             ->columnSpan(2)
                             ->maxLength(65535),
                     ]),
-                Toggle::make('status')
-                    ->label('Is Published')
-                    ->required(),
+                Card::make()
+                    ->schema([
+                        KeyValue::make('meta')
+                            ->helperText('List spesifikasi paket')
+                    ]),
+                Card::make()
+                    ->schema([
+                        Toggle::make('status')
+                            ->label('Is Published')
+                            ->helperText('Tampilkan produk pada halaman website.')
+                            ->required(),
+                    ])
 
             ]);
     }
@@ -83,9 +99,9 @@ class ProductResource extends Resource
                 ]),
                 TextColumn::make('status')
                     ->label('Is Published')->enum([
-                    0 => 'Draft',
-                    1 => 'Published',
-                ]),
+                        0 => 'Draft',
+                        1 => 'Published',
+                    ]),
                 TextColumn::make('created_at')
                     ->label('Created')
                     ->dateTime('d-m-Y H:m:s'),

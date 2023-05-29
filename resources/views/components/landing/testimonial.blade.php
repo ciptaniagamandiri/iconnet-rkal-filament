@@ -17,7 +17,7 @@
       <div class="-mt-8 sm:-mx-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         @foreach ($testimonies as $item)
           <div class="pt-8 sm:inline-block sm:w-full sm:px-4">
-            <figure class="rounded-2xl bg-gray-50 p-8 text-sm leading-6">
+            <figure class="rounded-2xl bg-gray-50 hover:bg-brands-secondary/10 hover:border hover:border-brands-secondary hover:transition hover:duration-300 hover:shadow-lg hover:shadow-brands-secondary/10 p-8 text-sm leading-6">
               <blockquote class="text-gray-900">
                 {!! $item->desc !!}
               </blockquote>

@@ -18,12 +18,14 @@ class Product extends Model
         'desc',
         'price',
         'status',
+        'meta',
         'name',
         'type',
     ];
 
     protected $casts = [
-        'status' => 'boolean'
+        'status' => 'boolean',
+        'meta' => 'json'
     ];
 
     public function getTypeLabelAttribute()

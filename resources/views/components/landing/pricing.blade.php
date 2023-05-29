@@ -19,6 +19,9 @@
         {{-- start product --}}
         @foreach ($products as $product) 
         <div class="pt-16 lg:px-8 lg:pt-0 xl:px-14">
+          <div class="pb-8"> 
+            <img src="{{$product->thumbnail}}" class="w-full object-cover mx-auto" >
+          </div>
           <h3 id="tier-basic" class="text-2xl font-semibold text-brands-primary">{{$product->name}}</h3>
           <p class="mt-6 flex items-baseline gap-x-1">
             <span class="text-5xl font-bold tracking-tight text-gray-900">{{ number_format($product?->price, 0, '.', ',') }}</span>

@@ -63,7 +63,7 @@ class FormregistrationResource extends Resource
                     ->label('Paket Internet')
                     ->options(Product::where('status', true)
                         ->get()
-                        ->pluck('price', 'id'))
+                        ->pluck('name', 'id'))
                     ->searchable()
                     ->required(),
                 TextInput::make('nik')
@@ -89,16 +89,16 @@ class FormregistrationResource extends Resource
                 TextColumn::make('idcustomer'),
                 TextColumn::make('email'),
                 TextColumn::make('coordinate'),
-                TextColumn::make('product.price'),
+                TextColumn::make('product.name'),
                 TextColumn::make('nik'),
                 IconColumn::make('status')
                     ->boolean(),
-                TextColumn::make('deleted_at')
-                    ->dateTime(),
                 TextColumn::make('created_at')
-                    ->dateTime(),
+                    ->label('Created')
+                    ->dateTime('d-m-Y H:m:s'),
                 TextColumn::make('updated_at')
-                    ->dateTime(),
+                    ->label('Created')
+                    ->dateTime('d-m-Y H:m:s'),
             ])
             ->filters([
                 TrashedFilter::make(),

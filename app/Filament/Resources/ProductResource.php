@@ -10,6 +10,7 @@ use Filament\Forms\Components\Card;
 use Filament\Resources\Form;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Toggle;
 use Filament\Resources\Resource;
@@ -17,7 +18,6 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\DeleteBulkAction;
@@ -32,7 +32,7 @@ class ProductResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-wifi';
 
-    protected static ?string $navigationLabel = 'Internet Package';
+    protected static ?string $navigationLabel = 'Paket Internet & Add On';
 
     public static function form(Form $form): Form
     {
@@ -40,12 +40,21 @@ class ProductResource extends Resource
             ->schema([
                 Card::make()
                     ->schema([
+                        TextInput::make('name')
+                            ->required(),
                         FileUpload::make('thumbnail')
                             ->directory('products')
                             ->required(),
                         TextInput::make('price')
                             ->numeric()
                             ->required(),
+                        Select::make('type')
+                            ->options([
+                                1 => 'Paket Internet',
+                                2 => 'Add On'
+                            ])
+                            ->default(1)
+                            ->disablePlaceholderSelection()
                     ]),
                 Card::make()
                     ->schema([
@@ -55,6 +64,7 @@ class ProductResource extends Resource
                             ->maxLength(65535),
                     ]),
                 Toggle::make('status')
+                    ->label('Is Published')
                     ->required(),
 
             ]);
@@ -65,15 +75,20 @@ class ProductResource extends Resource
         return $table
             ->columns([
                 ImageColumn::make('thumbnail')->circular(),
+                TextColumn::make('name'),
                 TextColumn::make('price'),
-                IconColumn::make('status')
-                    ->boolean(),
-                TextColumn::make('deleted_at')
-                    ->dateTime(),
+                TextColumn::make('type')->enum([
+                    1 => 'Paket Internet',
+                    2 => 'Add On'
+                ]),
+                TextColumn::make('status')
+                    ->label('Is Published')->enum([
+                    0 => 'Draft',
+                    1 => 'Published',
+                ]),
                 TextColumn::make('created_at')
-                    ->dateTime(),
-                TextColumn::make('updated_at')
-                    ->dateTime(),
+                    ->label('Created')
+                    ->dateTime('d-m-Y H:m:s'),
             ])
             ->filters([
                 TrashedFilter::make(),

@@ -14,12 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->string('title')
-                ->nullable()
-                ->after('id');
-            $table->json('meta')
-                ->nullable()
-                ->after('status');
+            $table->string('name');
+            $table->integer('type');
         });
     }
 
@@ -31,8 +27,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn('title');
-            $table->dropColumn('meta');
+            $table->dropColumn(['name','type']);
         });
     }
 };

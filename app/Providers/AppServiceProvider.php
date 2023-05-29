@@ -6,7 +6,10 @@ use App\Filament\Resources\CategoryResource;
 use App\Filament\Resources\ContactResource;
 use App\Filament\Resources\CarouselResource;
 use App\Filament\Resources\PostResource;
+use App\Filament\Resources\MapResource;
+use App\Filament\Resources\AreaResource;
 use App\Filament\Resources\ProductResource;
+use App\Filament\Resources\FormregistrationResource;
 use App\Filament\Resources\TestimonyResource;
 use App\Filament\Resources\SocialMediaResource;
 use App\Filament\Resources\UserResource;
@@ -50,27 +53,28 @@ class AppServiceProvider extends ServiceProvider
                             ->icon('heroicon-o-external-link')
                     ]),
                 NavigationGroup::make('Blogs')
-                    ->collapsible(false)
+                    ->collapsible(true)
                     ->items([
                         ...CarouselResource::getNavigationItems(),
-                        ...PostResource::getNavigationItems(),
                         ...CategoryResource::getNavigationItems(),
-                    ]),
-                NavigationGroup::make('')
-                    ->collapsible(false)
-                    ->items([
-                        ...ProductResource::getNavigationItems(),
+                        ...PostResource::getNavigationItems(),
                         ...TestimonyResource::getNavigationItems(),
                     ]),
-                NavigationGroup::make('Settings')
-                    ->collapsible(false)
+                NavigationGroup::make('Coverage')
+                    ->collapsible(true)
                     ->items([
-                        ...SocialMediaResource::getNavigationItems(),
+                        ...MapResource::getNavigationItems(),
+                        ...AreaResource::getNavigationItems(),
+                    ]),
+                NavigationGroup::make('Internet')
+                    ->collapsible(true)
+                    ->items([
+                        ...ProductResource::getNavigationItems(),
+                        ...FormregistrationResource::getNavigationItems(),
                     ]),
                 NavigationGroup::make('')
                     ->collapsible(false)
                     ->items([
-                        ...ContactResource::getNavigationItems(),
                         ...UserResource::getNavigationItems(),
                     ])
             ]);

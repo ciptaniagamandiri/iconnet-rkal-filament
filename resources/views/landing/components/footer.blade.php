@@ -33,7 +33,7 @@
       </div>
       <div class="mt-8 md:order-1 md:mt-0">
         <a href="/" class="flex-shrink-0">
-          <img class="block h-20 w-auto" src="/assets/iconnet.png" alt="Your Company">
+          <img class="block w-[10rem]" src="/assets/iconnet.png" alt="Your Company">
         </a>
       </div>
     </div>

@@ -27,4 +27,18 @@ class Product extends Model
         'status' => 'boolean',
         'meta' => 'json'
     ];
+
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['type'] ?? null, function ($query, $type) {
+            if($query) {
+                $query->where(function ($query) use ($type) {
+                    $query->where('type', $type)
+                        ->where('status', 1);
+                });
+            }else {
+                $query->where('status', 1);
+            }
+        });
+    }
 }

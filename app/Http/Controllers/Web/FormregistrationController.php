@@ -4,14 +4,17 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Formregistration as form;
+use App\Models\Formregistration as Form;
+use App\Models\Whatsapp\Otp;
+use App\Services\whatsapp;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class FormregistrationController extends Controller
 {
     public function form(Request $request)
     {
-        $request->validate([
+        request()->validate([
             'name' => 'required',
             'address' => 'required',
             'telp' => 'required|unique:formregistrations',
@@ -21,27 +24,69 @@ class FormregistrationController extends Controller
             'product_id' => 'required',
             'nik' => 'required|unique:formregistrations',
             'status' => 'required',
+            'otp' => 'required'
         ]);
 
+        $otp = Otp::where('otp', request()->otp)->where('status', 0)->first();
+        DB::beginTransaction();
         try {
-            $form = new form;
-            $form->name = $request->name;
-            $form->address = $request->address;
-            $form->telp = $request->telp;
-            $form->idcustomer = $request->idcustomer;
-            $form->email = $request->email;
-            $form->coordinate = $request->coordinate;
-            $form->product_id = $request->product_id;
-            $form->nik = $request->nik;
-            $form->status = false;
-            $form->save();
+            if ($otp) {
+                Form::create([
+                    'name' => request()->name,
+                    'address' => equest()->address,
+                    'telp' => request()->telp,
+                    'idcustomer' => request()->idcustomer,
+                    'email' => request()->email,
+                    'coordinate' => request()->coordinate,
+                    'product_id' => request()->product_id,
+                    'nik' => request()->nik,
+                    'status' => false
+                ]);
 
+                (new whatsapp)->group('120363098214634193@g.us', sprintf(
+                    "😍 Pesan dari %s,\nTelah mengisi form pemesanan paket internet pada website \n\n🔗 http://iconnet-kalimantan.id/  \n\n🔔 whatsapp: %s \n💌 email: %s \n💬 pesan: %s \n ",
+                    request()->name,
+                    request()->address,
+                    request()->telp,
+                    request()->idcustomer,
+                    request()->email,
+                    request()->coordinate,
+                    request()->product_id,
+                    request()->nik
+                ));
+    
+                $otp->update(['status' => 1]);
+    
+                (new whatsapp)->sendMessage(request()->telp, sprintf("Yeay, pemesanan paket internet anda telah kami terima dan akan segera kami proses. terimakasih telah mempercayakan internet anda pada kami. \n\n Salam hangat kami, ICONNET 💌."));
+            }
+            DB::commit();
             return redirect()->back();
-            // return response()->json(['status' => 'success', 'data' => $form], 200);
         } catch (\Throwable $th) {
+            throw $th;
             Log::error($th->getMessage());
-            return redirect()->back()->withErrors(["message" => "Request Failed " . $th->getMessage()]);
-            // return response()->json(['status' => 'failed', "message" => $th->getMessage()], 500);
+            DB::rollBack();
         }
+        return redirect()->back();
+    }
+
+    public function otp(Request $request)
+    {
+        request()->validate(['telp' => 'required']);
+    
+        $otp = rand(100000, 900000);
+        DB::beginTransaction();
+        try {
+            (new whatsapp)->sendMessage(request()->telp, sprintf("Pesan dari ICONNET, %s ini adalah kode otp anda.\nkode ini bersifat rahasia, masukkan kode ini di website kami http://iconnet-kalimantan.id/", $otp));
+            Otp::create(['otp' =>  $otp]);
+
+            DB::commit();
+            return response()->json('success');
+        } catch (\Throwable $th) {
+            throw $th;
+            Log::error($th->getMessage());
+            DB::rollBack();
+            return response()->json('error');
+        }
+        
     }
 }

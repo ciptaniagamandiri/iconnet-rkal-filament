@@ -20,9 +20,15 @@ class ProductController extends Controller
                 'name' => $item->name,
                 'price' => sprintf('Rp %s', number_format($item->price, 0, '.', ',')),
                 'desc' => $item->desc,
-                'meta' => $item->meta
+                'meta' => $item->meta,
+                'type' => [
+                    'code' => $item->type,
+                    'label' => $item->type->label()
+                ]
             ];
         });
+
+        // return $product;
         return view('landing.product', [
             'product' => $product
         ]);

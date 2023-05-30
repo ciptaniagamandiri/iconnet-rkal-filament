@@ -29,8 +29,8 @@
                 </li>
             </ul>
         </div>
-        <div class="w-full py-10 lg:col-span-5">
-            
+        <div class="w-full lg:col-span-5">
+            {{$product}}
         </div>
     </div>
 </div>

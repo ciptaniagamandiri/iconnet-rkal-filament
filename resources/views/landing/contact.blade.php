@@ -53,29 +53,11 @@
                 <h1 class="text-lg lg:text-2xl font-medium text-gray-900 group-hover:text-white">cc.iconnet@iconpln.co.id</h1>
             </div>
         </a>
-        <!-- Email Gangguan-->
-        <!-- <div class="p-4 bg-gray-100 rounded-xl flex items-center space-x-4 group hover:bg-brands-primary overflow-hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-10 lg:w-20 text-gray-500 group-hover:text-white flex-shrink-0" viewBox="0 0 24 24">
-                <path fill="currentColor" d="M11 11 3 6v10h10v2H3q-.825 0-1.413-.588T1 16V4q0-.825.588-1.413T3 2h16q.825 0 1.413.588T21 4v5h-2V6l-8 5Zm0-2 8-5H3l8 5Zm8 13q-1.65 0-2.825-1.175T15 18v-4.5q0-1.05.725-1.775T17.5 11q1.05 0 1.775.725T20 13.5V18h-2v-4.5q0-.2-.15-.35T17.5 13q-.2 0-.35.15t-.15.35V18q0 .825.588 1.413T19 20q.825 0 1.413-.588T21 18v-4h2v4q0 1.65-1.175 2.825T19 22ZM3 6V4v12V6Z" />
-            </svg>
-            <div>
-                <p class="text-gray-700 group-hover:text-white">Email Gangguan</p>
-                <h1 class="text-lg lg:text-2xl font-medium text-gray-900 group-hover:text-white"> cc.iconnet@iconpln.co.id </h1>
-            </div>
-        </div> -->
-        {{-- <a href="https://iconnet.id/" target="_blank" class="p-4 bg-gray-100 rounded-xl flex items-center space-x-4 group hover:bg-brands-primary overflow-hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-10 lg:w-20 text-gray-500 group-hover:text-white flex-shrink-0" viewBox="0 0 24 24">
-                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                    <path d="M8 5H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h5.697M18 14v4h4m-4-7V7a2 2 0 0 0-2-2h-2" />
-                    <path d="M8 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v0a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2zm6 13a4 4 0 1 0 8 0 4 4 0 1 0-8 0m-6-7h4m-4 4h3" />
-                </g>
-            </svg>
-            <div>
-                <p class="text-gray-700 group-hover:text-white">Live Chat</p>
-                <h1 class="text-lg lg:text-2xl font-medium text-gray-900 group-hover:text-white">iconnet.id  </h1>
-            </div>
-        </a> --}}
     </div>
 </div>
-{{-- <x-landing.testimonial /> --}}
+{{-- <div class="max-w-7xl mx-auto py-10 px-5">
+    <div class="mx-auto max-w-xl text-center">
+        <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Alamat Kantor</p>
+    </div>
+</div> --}}
 @endsection

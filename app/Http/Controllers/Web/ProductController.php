@@ -30,7 +30,7 @@ class ProductController extends Controller
 
         // return $product;
         return view('landing.product', [
-            'product' => $product
+            'products' => $product
         ]);
     }
 }

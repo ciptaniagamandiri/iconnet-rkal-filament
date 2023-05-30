@@ -23,7 +23,7 @@ class AreaController extends Controller
             ->where('district_id', $kecamatan)
             ->where('village_id', $kelurahan)
             ->get();
-        return $areaCoverage;
+            
         return view('landing.area', compact('areaCoverage'));
     }
 }

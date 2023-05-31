@@ -24,4 +24,4 @@ Route::get('/contact', function () {
     return view('landing.contact');
 })->name('landing.contact');
 Route::post('/form', [Web\FormregistrationController::class, 'form'])->name('form.store');
-Route::post('/send-otp', [Web\FormregistrationController::class, 'otp'])->name('otp');
+Route::post('/send-otp', [Web\FormregistrationController::class, 'otp'])->name('form.otp');

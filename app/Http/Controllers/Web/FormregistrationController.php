@@ -14,20 +14,9 @@ class FormregistrationController extends Controller
 {
     public function form(Request $request)
     {
-        request()->validate([
-            'name' => 'required',
-            'address' => 'required',
-            'telp' => 'required|unique:formregistrations',
-            'idcustomer' => 'required|unique:formregistrations',
-            'email' => 'required|unique:formregistrations',
-            'coordinate' => 'required',
-            'product_id' => 'required',
-            'nik' => 'required|unique:formregistrations',
-            'status' => 'required',
-            'otp' => 'required'
-        ]);
 
         $otp = Otp::where('otp', $request->otp)->where('status', 0)->first();
+        // return $otp;
         DB::beginTransaction();
         try {
             if ($otp) {

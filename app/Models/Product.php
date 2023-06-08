@@ -25,4 +25,17 @@ class Product extends Model
     protected $casts = [
         'status' => 'boolean'
     ];
+
+    public function getTypeLabelAttribute()
+    {
+        $type = '-';
+
+        if ($this->type == 1) {
+            $type = 'Paket Internet';
+        } else {
+            $type = 'Add On';
+        }
+
+        return $type;
+    }
 }

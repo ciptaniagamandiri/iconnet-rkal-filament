@@ -15,7 +15,6 @@ use App\Http\Controllers\Web;
 |
 */
 
-Route::get('/test', [Web\AreaController::class, 'index']);
 Route::get('/', [Web\LandingController::class, 'index'])->name('landing');
 Route::get('/area', [Web\AreaController::class, 'index'])->name('landing.area');
 Route::get('/products', [Web\ProductController::class, 'index'])->name('landing.product');

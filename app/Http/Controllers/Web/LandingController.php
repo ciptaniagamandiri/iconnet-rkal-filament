@@ -20,7 +20,6 @@ class LandingController extends Controller
         })->all();
         $testimonies = Testimony::where('status', true)->paginate(10);
 
-        $data = compact('carousels', 'posts', 'products', 'testimonies');
-        return view('landing.index', $data);
+        return view('landing.index', compact('carousels', 'posts', 'products', 'testimonies'));
     }
 }

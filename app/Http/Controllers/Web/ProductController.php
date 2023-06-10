@@ -14,6 +14,8 @@ class ProductController extends Controller
             return [$item['type_label'] => $item];
         })->all();
 
+        // $products = Product::all();
+
         return view('landing.product', compact('products'));
     }
 }

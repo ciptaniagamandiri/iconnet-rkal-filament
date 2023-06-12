@@ -34,37 +34,45 @@ class AreaResource extends Resource
 
     protected static ?string $navigationLabel = 'Area Coverage';
 
-    
+
     public static function form(Form $form): Form
     {
-        $province = Province::whereIn('id', [61,62,63,64,65])->get()->pluck('id');
-        $regency = Regency::whereIn('province_id', $province)->get()->pluck('id');
-        $district = District::whereIn('regency_id', $regency)->get()->pluck('id');
         return $form
             ->schema([
                 Select::make('province_id')
                     ->label('Provinsi')
-                    ->options(Province::whereIn('id', [61,62,63,64,65])
-                        ->get()
-                        ->pluck('name', 'id'))
+                    ->options(Province::whereIn('id', [61, 62, 63, 64, 65])->pluck('name', 'id')->toArray())
+                    ->reactive()
                     ->searchable(),
                 Select::make('regency_id')
                     ->label('Kota')
-                    ->options(Regency::whereIn('province_id', $province)
-                        ->get()
-                        ->pluck('name', 'id'))
+                    ->options(function (callable $get) {
+                        $provinces = Province::find($get('province_id'));
+                        if (is_null($provinces)) {
+                            return Regency::all()->pluck('name', 'id');
+                        }
+                        return $provinces->regencies->pluck('name', 'id');
+                    })
                     ->searchable(),
                 Select::make('district_id')
                     ->label('Kecamatan')
-                    ->options(District::whereIn('regency_id',$regency)
-                        ->get()
-                        ->pluck('name', 'id'))
+                    ->options(function (callable $get) {
+                        $regencies = Regency::find($get('regency_id'));
+                        if (is_null($regencies)) {
+                            return District::all()->pluck('name', 'id');
+                        }
+                        return $regencies->districts->pluck('name', 'id');
+                    })
                     ->searchable(),
                 Select::make('village_id')
                     ->label('Kelurahan')
-                    ->options(Village::whereIn('district_id',$district)
-                        ->get()
-                        ->pluck('name', 'id'))
+                    ->options(function (callable $get) {
+                        $districts = District::find($get('district_id'));
+                        if (is_null($districts)) {
+                            return Village::all()->pluck('name', 'id');
+                        }
+                        return $districts->villages->pluck('name', 'id');
+                    })
                     ->searchable(),
                 TextInput::make('name')
                     ->label('Area')
@@ -87,9 +95,9 @@ class AreaResource extends Resource
                 TextColumn::make('name')->label('Area'),
                 TextColumn::make('status')
                     ->label('Is Active')->enum([
-                    0 => 'Non Active',
-                    1 => 'Active',
-                ]),
+                        0 => 'Non Active',
+                        1 => 'Active',
+                    ]),
                 TextColumn::make('created_at')
                     ->label('Created')
                     ->dateTime('d-m-Y H:m:s'),
@@ -106,14 +114,14 @@ class AreaResource extends Resource
                 RestoreBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -121,8 +129,8 @@ class AreaResource extends Resource
             'create' => Pages\CreateArea::route('/create'),
             'edit' => Pages\EditArea::route('/{record}/edit'),
         ];
-    }    
-    
+    }
+
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()

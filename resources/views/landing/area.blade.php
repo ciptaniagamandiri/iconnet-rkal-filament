@@ -1,30 +1,70 @@
 @extends('landing.layouts.default')
 @section('content')
-<div class="w-full h-[20rem] bg-brands-primary relative">
-    <div class="absolute top-0 w-full h-full grid place-items-center bg-gradient-to-b from-brands-primary to-brands-primary/40 backdrop-blur-sm z-10">
-        <div class=" text-center">
-            <h1 class="font-bold text-4xl text-white">CAKUPAN AREA</h1>
-            <div class="max-w-4xl mx-auto px-5 mt-4">
-                <p class="text-white mg:text-lg">ICONNET merupakan jaringan Fiber Optic, menggunakan teknologi terkini sehingga dapat melayani Internet dan TV seamless pada kabel fiber optic yang sama tanpa menurunkan kecepatan dan kualitas</p>
-            </div>
-        </div>
-    </div>
-    <img src="https://images.unsplash.com/photo-1620549146396-9024d914cd99?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2342&q=80" alt="" class="h-full w-full object-cover object-bottom">
-</div>
 <div class="max-w-7xl mx-auto">
     <div class="py-10 px-5">
         <div class="grid grid-cols-3 gap-4">
             <div>
-                {{-- <h6>CAKUPAN AREA</h6> --}}
+                <h1 class="font-bold text-4xl text-gray-600">CAKUPAN AREA</h1>
+                <hr class="divide-blue-200">
+                <div class="max-w-4xl mx-auto  mt-8">
+                    <p class="text-gray-400 mg:text-lg">ICONNET merupakan jaringan Fiber Optic, menggunakan teknologi terkini sehingga dapat melayani Internet dan TV seamless pada kabel fiber optic yang sama tanpa menurunkan kecepatan dan kualitas</p>
+                </div>
+                <div class="max-w-4xl mx-auto  mt-4">
+                    <div class="w-full max-w-xs">
+                        <form action="{{route('landing.area')}}" method="GET">
+                          <div class="mb-8">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="Provinsi">Provinsi</label>
+                            <select name="province_id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline " id="grid-state">
+                                <option selected disabled>Pilih Provinsi</option>
+                                @foreach ($dataProvinsi as $provinsi)
+                                    <option value="{{$provinsi->id}}">{{$provinsi->name}}</option>
+                                @endforeach
+                            </select>
+                          </div>
+                          <div class="mb-8">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="Kota">Kota</label>
+                            <select name="regency_id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline " id="grid-state">
+                                <option selected disabled>Pilih Kota/Kabupaten</option>
+                                @foreach ($dataKota as $kota)
+                                    <option value="{{$kota->id}}">{{$kota->name}}</option>
+                                @endforeach
+                            </select>
+                          </div>
+                          <div class="mb-8">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="Kecamatan">Kecamatan</label>
+                            <select name="district_id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline " id="grid-state">
+                                <option selected disabled>Pilih Kecamatan</option>
+                                @foreach ($dataKecamatan as $kecamatan)
+                                    <option value="{{$kecamatan->id}}">{{$kecamatan->name}}</option>
+                                @endforeach
+                            </select>
+                          </div>
+                          <div class="mb-8">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="Kelurahan">Kelurahan</label>
+                            <select name="village_id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline " id="grid-state">
+                                <option selected disabled>Pilih Kelurahan</option>
+                                @foreach ($dataKelurahan as $kelurahan)
+                                    <option value="{{$kelurahan->id}}">{{$kelurahan->name}}</option>
+                                @endforeach
+                            </select>
+                          </div>
+                          <div class="flex items-center justify-between">
+                            <button type="submit" class="w-full bg-brands-primary relative hover:text-white text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline " type="button">
+                              Cek Ketersediaan
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                </div>
             </div>
-            <div class="col-span-3">    
-                <img src="/assets/Kalimantan.png" class="mx-100 w-100 h-100" alt="">
+            <div class="col-span-2">    
+                <img src="/assets/Kalimantan.png" class="mx-100 w-70 h-50" alt="">
                 <div class="grid grid-cols-2 gap-4">
                     @foreach ($areaCoverage as $provinsi => $kotas)
                     <div>
-                        <div class="container mx-auto px-4 bg-gray-100 shadow-md text-gray-500 rounded-lg">
+                        <div class="container mx-auto p-4 bg-gray-100 shadow-md text-gray-500 rounded-lg">
                             <h1 class="font-bold text-xl text-center"><u>{{$provinsi}}</u></h1>
-                            <ul class="list-decimal ">
+                            <ul class="list-decimal p-4">
                                 @foreach ($kotas as $kota => $kecamatans)
                                 <li>{{$kota}}</li>
                                 <ul class="list-disc ml-4">
@@ -49,7 +89,7 @@
                     @endforeach
                 </div>
             </div>
-          </div>
+        </div>
     </div>
 </div>
 @endsection

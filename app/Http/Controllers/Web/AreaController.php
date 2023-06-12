@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Coverage\Area;
+use App\Models\District;
+use App\Models\Province;
+use App\Models\Regency;
+use App\Models\Village;
 
 class AreaController extends Controller
 {
@@ -14,29 +18,54 @@ class AreaController extends Controller
         $kecamatan = request()->district_id;
         $kelurahan = request()->village_id;
 
-        $filter = compact('provinsi', 'kota', 'kecamatan', 'kelurahan');
-        // if (($filter)) {
-        //     $areaCoverage = Area::with('province', 'regency', 'district', 'village')
-        //         ->where('province_id', 'LIKE', '%' . $provinsi . '%')
-        //         ->where('regency_id', 'LIKE', '%' . $kota . '%')
-        //         ->where('district_id', 'LIKE', '%' . $kecamatan . '%')
-        //         ->where('village_id', 'LIKE', '%' . $kelurahan . '%')
-        //         ->get()
-        //         ->mapToGroups(function ($item) {
-        //             return [$item['province']['name'] => [$item['regency']['name'] => [$item]]];
-        //         })->all();
-        // } else {
-        //     $areaCoverage = Area::where('status', true)->paginate(10)->mapToGroups(function ($item) {
-        //         return [[$item['province_id'] => [$item['regency_id'] => [$item]]]];
-        //     })->all();
-        // }
-        // foreach ($areaCoverage as $key => $value) {
-        //     foreach ($value as $key => $value) {
-        //         return $value;
-        //     }
-        // }
-        $areaCoverage = Area::get()->groupBy(['province.name', 'regency.name', 'district.name', 'village.name']);
-        // return $areaCoverage;
-        return view('landing.area', compact('areaCoverage'));
+        $dataProvinsi = Province::whereIn('id', [61, 62, 63, 64, 65])->get();
+        $dataKota = Regency::where('province_id', $provinsi)->get();
+        $dataKecamatan = District::where('regency_id', $kota)->get();
+        $dataKelurahan = Village::where('district_id', $kecamatan)->get();
+
+        $areaCoverage = [];
+        if ($provinsi) {
+            $areaCoverage = Area::with('province', 'regency', 'district', 'village')
+                ->where('province_id', 'LIKE', '%' . $provinsi . '%')
+                ->where('regency_id', 'LIKE', '%' . $kota . '%')
+                ->where('district_id', 'LIKE', '%' . $kecamatan . '%')
+                ->where('village_id', 'LIKE', '%' . $kelurahan . '%')
+                ->get()
+                ->groupBy(['province.name', 'regency.name', 'district.name', 'village.name']);
+        } else {
+            $areaCoverage = Area::get()->groupBy(['province.name', 'regency.name', 'district.name', 'village.name']);
+        }
+        // return response()->json($areaCoverage);
+        return view('landing.area', compact('areaCoverage', 'dataProvinsi', 'dataKota', 'dataKecamatan', 'dataKelurahan'));
+    }
+
+    public function fetchDataKota()
+    {
+        $provinsi = request()->province_id;
+        $kota = [];
+        if ($provinsi) {
+            $kota = Regency::where('province_id', $provinsi)->get();
+        }
+        return response()->json($kota);
+    }
+
+    public function fetchDataKecamatan()
+    {
+        $kota = request()->regency_id;
+        $kecamatan = [];
+        if ($kota) {
+            $kecamatan = District::where('regency_id', $kota)->get();
+        }
+        return response()->json($kecamatan);
+    }
+
+    public function fetchDataKelurahan()
+    {
+        $kecamatan = request()->district_id;
+        $kelurahan = [];
+        if ($kecamatan) {
+            $kelurahan = Village::where('district_id', $kecamatan)->get();
+        }
+        return response()->json($kelurahan);
     }
 }

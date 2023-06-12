@@ -23,3 +23,7 @@ Route::get('/contact', function () {
 })->name('landing.contact');
 Route::post('/form', [Web\FormregistrationController::class, 'form'])->name('form.store');
 Route::post('/send-otp', [Web\FormregistrationController::class, 'otp'])->name('form.otp');
+
+Route::get('fetch/data/kota', [Web\AreaController::class, 'fetchDataKota'])->name('fetch.data.kota');
+Route::get('fetch/data/kecamatan', [Web\AreaController::class, 'fetchDataKecamatan'])->name('fetch.data.kecamatan');
+Route::get('fetch/data/kelurahan', [Web\AreaController::class, 'fetchDataKelurahan'])->name('fetch.data.kelurahan');

@@ -13,43 +13,8 @@
 </div>
 <div class="max-w-7xl mx-auto">
     <div class="py-10 px-5">
-        <div class="grid grid-cols-3 gap-4">
-            <div>
-                {{-- <h6>CAKUPAN AREA</h6> --}}
-            </div>
-            <div class="col-span-3">    
-                <img src="/assets/Kalimantan.png" class="mx-100 w-100 h-100" alt="">
-                <div class="grid grid-cols-2 gap-4">
-                    @foreach ($areaCoverage as $provinsi => $kotas)
-                    <div>
-                        <div class="container mx-auto px-4 bg-gray-100 shadow-md text-gray-500 rounded-lg">
-                            <h1 class="font-bold text-xl text-center"><u>{{$provinsi}}</u></h1>
-                            <ul class="list-decimal ">
-                                @foreach ($kotas as $kota => $kecamatans)
-                                <li>{{$kota}}</li>
-                                <ul class="list-disc ml-4">
-                                    @foreach ($kecamatans as $kecamatan => $kelurahans)
-                                        <li>{{$kecamatan}}</li>
-                                        <ul class="list-disc ml-8">
-                                            @foreach ($kelurahans as $kelurahan => $areas)
-                                                <li>{{$kelurahan}}</li>
-                                                <ul class="list-decimal ml-12">
-                                                    @foreach ($areas as $area)
-                                                    <li>{{$area->name}}</li>
-                                                    @endforeach
-                                                </ul>
-                                            @endforeach
-                                        </ul>
-                                    @endforeach
-                                </ul>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
-            </div>
-          </div>
+        {{-- <img src="https://iconnet.id/img/New%20Coverage%20v2-02.cf820d5e.png" class="mx-auto w-full" alt=""> --}}
+        <img src="/assets/Kalimantan.png" class="mx-auto w-full" alt="">
     </div>
 </div>
 @endsection

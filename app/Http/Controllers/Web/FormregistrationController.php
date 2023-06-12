@@ -4,65 +4,44 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Formregistration as Form;
-use App\Models\Whatsapp\Otp;
-use App\Services\Watzap;
-use Illuminate\Support\Facades\DB;
+use App\Models\Formregistration as form;
 use Illuminate\Support\Facades\Log;
 
 class FormregistrationController extends Controller
 {
     public function form(Request $request)
     {
-
-        $otp = Otp::where('otp', $request->otp)->where('status', 0)->first();
-        // return $otp;
-        DB::beginTransaction();
-        try {
-            if ($otp) {
-                Form::create([
-                    'name' => $request->name,
-                    'address' => $request->address,
-                    'telp' => $request->telp,
-                    'idcustomer' => $request->idcustomer,
-                    'email' => $request->email,
-                    'coordinate' => $request->coordinate,
-                    'product_id' => $request->product_id,
-                    'nik' => $request->nik,
-                    'status' => false
-                ]);
-                $otp->update(['status' => 1]);
-
-                $message = sprintf("Yeay, pemesanan paket internet anda telah kami terima dan akan segera kami proses. terimakasih telah mempercayakan internet anda pada kami. \n\n Salam hangat kami, ICONNET 💌.");
-                (new Watzap)->sendMessage($request, $message);
-            }
-            DB::commit();
-            return redirect()->back();
-        } catch (\Throwable $th) {
-            Log::error($th->getMessage());
-            DB::rollBack();
-        }
-    }
-
-    public function otp(Request $request)
-    {
         $request->validate([
-            'telp' => 'required',
+            'name' => 'required',
+            'address' => 'required',
+            'telp' => 'required|unique:formregistrations',
+            'idcustomer' => 'required|unique:formregistrations',
+            'email' => 'required|unique:formregistrations',
+            'coordinate' => 'required',
+            'product_id' => 'required',
+            'nik' => 'required|unique:formregistrations',
+            'status' => 'required',
         ]);
 
-        $otp = rand(100000, 900000);
-        DB::beginTransaction();
         try {
-            $message = sprintf("Pesan dari Iconnet, %s ini adalah kode otp anda.\nkode ini bersifat rahasia, input kode ini di website kami http://iconnet-kalimantan.id/", $otp);
-            $sendOTP = (new Watzap)->sendMessage($request, $message);
-            Otp::create([
-                'otp' => $otp
-            ]);
-            DB::commit();
-            return response()->json(['success', $sendOTP]);
+            $form = new form;
+            $form->name = $request->name;
+            $form->address = $request->address;
+            $form->telp = $request->telp;
+            $form->idcustomer = $request->idcustomer;
+            $form->email = $request->email;
+            $form->coordinate = $request->coordinate;
+            $form->product_id = $request->product_id;
+            $form->nik = $request->nik;
+            $form->status = false;
+            $form->save();
+
+            return redirect()->back();
+            // return response()->json(['status' => 'success', 'data' => $form], 200);
         } catch (\Throwable $th) {
-            DB::rollBack();
-            return response()->json($th->getMessage());
+            Log::error($th->getMessage());
+            return redirect()->back()->withErrors(["message" => "Request Failed " . $th->getMessage()]);
+            // return response()->json(['status' => 'failed', "message" => $th->getMessage()], 500);
         }
     }
 }

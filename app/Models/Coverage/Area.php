@@ -10,7 +10,6 @@ use App\Models\Province;
 use App\Models\Regency;
 use App\Models\District;
 use App\Models\Village;
-
 class Area extends Model
 {
     use HasFactory;
@@ -31,22 +30,22 @@ class Area extends Model
         'status' => 'boolean'
     ];
 
-    public function province()
+    public function province() 
     {
         return $this->belongsTo(Province::class, 'province_id');
     }
 
-    public function regency()
+    public function regency() 
     {
         return $this->belongsTo(Regency::class, 'regency_id');
     }
 
-    public function district()
+    public function district() 
     {
         return $this->belongsTo(District::class, 'district_id');
     }
 
-    public function village()
+    public function village() 
     {
         return $this->belongsTo(Village::class, 'village_id');
     }

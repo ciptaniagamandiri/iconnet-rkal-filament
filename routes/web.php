@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Web;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,9 +16,12 @@ use App\Http\Controllers\Web;
 
 Route::get('/', [Web\LandingController::class, 'index'])->name('landing');
 Route::get('/area', [Web\AreaController::class, 'index'])->name('landing.area');
-Route::get('/products', [Web\ProductController::class, 'index'])->name('landing.product');
-Route::get('/contact', function () {
+Route::get('/products', function(){
+    return view('landing.product');
+})->name('landing.product');
+Route::get('/contact', function(){
     return view('landing.contact');
 })->name('landing.contact');
 Route::post('/form', [Web\FormregistrationController::class, 'form'])->name('form.store');
-Route::post('/send-otp', [Web\FormregistrationController::class, 'otp'])->name('form.otp');
+
+

@@ -22,6 +22,8 @@ Route::get('/products', function(){
 Route::get('/contact', function(){
     return view('landing.contact');
 })->name('landing.contact');
+
+Route::get('/registration/product/{product:id}', [Web\FormregistrationController::class, 'index'])->name('form.index');
 Route::post('/form', [Web\FormregistrationController::class, 'form'])->name('form.store');
 
 

@@ -432,8 +432,8 @@ class ComposerStaticInit0ef164947dea42b88b871052113c942e
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -756,6 +756,7 @@ class ComposerStaticInit0ef164947dea42b88b871052113c942e
         'AnourValar\\EloquentSerialize\\Package' => __DIR__ . '/..' . '/anourvalar/eloquent-serialize/src/Package.php',
         'AnourValar\\EloquentSerialize\\Service' => __DIR__ . '/..' . '/anourvalar/eloquent-serialize/src/Service.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
+        'App\\Enums\\ProductType' => __DIR__ . '/../..' . '/app/Enums/ProductType.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Filament\\Resources\\AreaResource' => __DIR__ . '/../..' . '/app/Filament/Resources/AreaResource.php',
         'App\\Filament\\Resources\\AreaResource\\Pages\\CreateArea' => __DIR__ . '/../..' . '/app/Filament/Resources/AreaResource/Pages/CreateArea.php',

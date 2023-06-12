@@ -22,6 +22,7 @@ return array(
     'AnourValar\\EloquentSerialize\\Package' => $vendorDir . '/anourvalar/eloquent-serialize/src/Package.php',
     'AnourValar\\EloquentSerialize\\Service' => $vendorDir . '/anourvalar/eloquent-serialize/src/Service.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
+    'App\\Enums\\ProductType' => $baseDir . '/app/Enums/ProductType.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Filament\\Resources\\AreaResource' => $baseDir . '/app/Filament/Resources/AreaResource.php',
     'App\\Filament\\Resources\\AreaResource\\Pages\\CreateArea' => $baseDir . '/app/Filament/Resources/AreaResource/Pages/CreateArea.php',

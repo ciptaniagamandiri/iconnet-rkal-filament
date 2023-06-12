@@ -5,10 +5,18 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Formregistration as form;
+use App\Models\Product;
 use Illuminate\Support\Facades\Log;
 
 class FormregistrationController extends Controller
 {
+    function index(Product $product) {
+        // return $product;
+        return view('landing.registration.index', [
+            'product' => $product
+        ]);
+    }
+
     public function form(Request $request)
     {
         $request->validate([

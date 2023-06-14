@@ -14,7 +14,7 @@
                         <form action="{{route('landing.area')}}" method="GET">
                           <div class="mb-8">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="Provinsi">Provinsi</label>
-                            <select name="province_id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline " id="grid-state">
+                            <select name="province_id" id="provinsi" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline " id="grid-state">
                                 <option selected disabled>Pilih Provinsi</option>
                                 @foreach ($dataProvinsi as $provinsi)
                                     <option value="{{$provinsi->id}}">{{$provinsi->name}}</option>
@@ -23,7 +23,7 @@
                           </div>
                           <div class="mb-8">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="Kota">Kota</label>
-                            <select name="regency_id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline " id="grid-state">
+                            <select name="regency_id" id="kota" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline " id="grid-state">
                                 <option selected disabled>Pilih Kota/Kabupaten</option>
                                 @foreach ($dataKota as $kota)
                                     <option value="{{$kota->id}}">{{$kota->name}}</option>
@@ -32,7 +32,7 @@
                           </div>
                           <div class="mb-8">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="Kecamatan">Kecamatan</label>
-                            <select name="district_id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline " id="grid-state">
+                            <select name="district_id" id="kecamatan" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline " id="grid-state">
                                 <option selected disabled>Pilih Kecamatan</option>
                                 @foreach ($dataKecamatan as $kecamatan)
                                     <option value="{{$kecamatan->id}}">{{$kecamatan->name}}</option>
@@ -41,7 +41,7 @@
                           </div>
                           <div class="mb-8">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="Kelurahan">Kelurahan</label>
-                            <select name="village_id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline " id="grid-state">
+                            <select name="village_id" id="kelurahan" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline " id="grid-state">
                                 <option selected disabled>Pilih Kelurahan</option>
                                 @foreach ($dataKelurahan as $kelurahan)
                                     <option value="{{$kelurahan->id}}">{{$kelurahan->name}}</option>
@@ -93,3 +93,92 @@
     </div>
 </div>
 @endsection
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script>
+            $(document).ready(function() {
+                $('#provinsi').on('change', function() {
+                    var provinsiID = $(this).val();
+                    console.log(provinsiID)
+                    if(provinsiID) {
+                        $.ajax({
+                            url: '/fetch/data/kota/'+provinsiID,
+                            type: "GET",
+                            data : {"_token":"{{ csrf_token() }}"},
+                            dataType: "json",
+                            success:function(data)
+                            {
+                                if(data){
+                                    $('#kota').empty();
+                                    $('#kota').append('<option hidden>Pilih kota/Kabupatan</option>'); 
+                                    $.each(data, function(key, kota){
+                                        $('select[name="regency_id"]').append('<option value="'+ kota.id +'">' + kota.name+ '</option>');
+                                    });
+                                }else{
+                                    $('#kota').empty();
+                                }
+                            }
+                        });
+                    } else {
+                        $('#kota').empty();
+                    }
+                });
+
+                $('#kota').on('change', function() {
+                    var kotaID = $(this).val();
+                    console.log(kotaID)
+                    if(kotaID) {
+                        $.ajax({
+                            url: '/fetch/data/kecamatan/'+kotaID,
+                            type: "GET",
+                            data : {"_token":"{{ csrf_token() }}"},
+                            dataType: "json",
+                            success:function(data)
+                            {
+                                if(data){
+                                    $('#kecamatan').empty();
+                                    $('#kecamatan').append('<option hidden>Pilih Kecamtan</option>'); 
+                                    $.each(data, function(key, kecamatan){
+                                        $('select[name="district_id"]').append('<option value="'+ kecamatan.id +'">' + kecamatan.name+ '</option>');
+                                    });
+
+                                    
+                                }else{
+                                    $('#kecamatan').empty();
+                                }
+                            }
+                        });
+                    }else{
+                        $('#kecamatan').empty();
+                    }
+                });
+
+                $('#kecamatan').on('change', function() {
+                    var kecamatanID = $(this).val();
+                    console.log(kecamatanID)
+                    if(kecamatanID) {
+                        $.ajax({
+                            url: '/fetch/data/kelurahan/'+kecamatanID,
+                            type: "GET",
+                            data : {"_token":"{{ csrf_token() }}"},
+                            dataType: "json",
+                            success:function(data)
+                            {
+                                if(data){
+                                    $('#kelurahan').empty();
+                                    $('#kelurahan').append('<option hidden>Pilih Kecamtan</option>'); 
+                                    $.each(data, function(key, kelurahan){
+                                        $('select[name="village_id"]').append('<option value="'+ kelurahan.id +'">' + kelurahan.name+ '</option>');
+                                    });
+
+                                    
+                                }else{
+                                    $('#kelurahan').empty();
+                                }
+                            }
+                        });
+                    }else{
+                        $('#kelurahan').empty();
+                    }
+                });
+            });
+        </script>

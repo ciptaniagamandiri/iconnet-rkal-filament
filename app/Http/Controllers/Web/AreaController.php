@@ -39,32 +39,29 @@ class AreaController extends Controller
         return view('landing.area', compact('areaCoverage', 'dataProvinsi', 'dataKota', 'dataKecamatan', 'dataKelurahan'));
     }
 
-    public function fetchDataKota()
+    public function fetchDataKota($id)
     {
-        $provinsi = request()->province_id;
         $kota = [];
-        if ($provinsi) {
-            $kota = Regency::where('province_id', $provinsi)->get();
+        if ($id) {
+            $kota = Regency::where('province_id', $id)->get();
         }
         return response()->json($kota);
     }
 
-    public function fetchDataKecamatan()
+    public function fetchDataKecamatan($id)
     {
-        $kota = request()->regency_id;
         $kecamatan = [];
-        if ($kota) {
-            $kecamatan = District::where('regency_id', $kota)->get();
+        if ($id) {
+            $kecamatan = District::where('regency_id', $id)->get();
         }
         return response()->json($kecamatan);
     }
 
-    public function fetchDataKelurahan()
+    public function fetchDataKelurahan($id)
     {
-        $kecamatan = request()->district_id;
         $kelurahan = [];
-        if ($kecamatan) {
-            $kelurahan = Village::where('district_id', $kecamatan)->get();
+        if ($id) {
+            $kelurahan = Village::where('district_id', $id)->get();
         }
         return response()->json($kelurahan);
     }

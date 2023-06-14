@@ -59,13 +59,17 @@
             </div>
             <div class="col-span-2">    
                 <img src="/assets/Kalimantan.png" class="mx-100 w-70 h-50" alt="">
-                <div class="grid grid-cols-2 gap-4">
-                    @foreach ($areaCoverage as $provinsi => $kotas)
-                    <div>
-                        <div class="container mx-auto p-4 bg-gray-100 shadow-md text-gray-500 rounded-lg">
-                            <h1 class="font-bold text-xl text-center"><u>{{$provinsi}}</u></h1>
-                            <ul class="list-decimal p-4">
-                                @foreach ($kotas as $kota => $kecamatans)
+            </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+            @foreach ($areaCoverage as $provinsi => $kotas)
+            <div class="col-span-2">
+                <div class="container mx-auto p-4 bg-gray-100 shadow-md text-gray-500 rounded-lg">
+                    <h1 class="font-bold text-xl text-center"><u>{{$provinsi}}</u></h1>
+                    <ul class="list-decimal p-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            @foreach ($kotas as $kota => $kecamatans)
+                            <div>
                                 <li>{{$kota}}</li>
                                 <ul class="list-disc ml-4">
                                     @foreach ($kecamatans as $kecamatan => $kelurahans)
@@ -82,13 +86,13 @@
                                         </ul>
                                     @endforeach
                                 </ul>
-                                @endforeach
-                            </ul>
+                            </div>
+                            @endforeach
                         </div>
-                    </div>
-                    @endforeach
+                    </ul>
                 </div>
             </div>
+            @endforeach
         </div>
     </div>
 </div>

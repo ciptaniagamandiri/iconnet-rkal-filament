@@ -13,12 +13,16 @@ class LandingController extends Controller
 {
     public function index()
     {
-        $carousels = Carousel::where('status', true)->paginate(10);
-        $posts = Post::where('is_published', true)->paginate(10);
-        $products = Product::where('status', true)->paginate(10);
-        $testimonies = Testimony::where('status', true)->paginate(10);
+        // $carousels = Carousel::where('status', true)->paginate(10);
+        // $posts = Post::where('is_published', true)->paginate(10);
+        $products = Product::where('status', true)
+            ->where('type', 1)
+            ->paginate(10);
+        // $testimonies = Testimony::where('status', true)->paginate(10);
 
-        $data = compact('carousels', 'posts', 'products', 'testimonies');
-        return view('landing.index', $data);
+        // $data = compact('carousels', 'posts', 'products', 'testimonies');
+        return view('landing.index', [
+            'products' => $products
+        ]);
     }
 }

@@ -31,3 +31,4 @@ Route::get('fetch/data/kecamatan/{id}', [Web\AreaController::class, 'fetchDataKe
 Route::get('fetch/data/kelurahan/{id}', [Web\AreaController::class, 'fetchDataKelurahan'])->name('fetch.data.kelurahan');
 
 Route::get('/product/{product:id}/registration',  [Web\RegistrationController::class, 'registration'])->name('product.registration');
+Route::get('/request/otp', [Web\RegistrationController::class, 'requestOtp'])->name('otp.request');

@@ -13,6 +13,7 @@ use App\Filament\Resources\FormregistrationResource;
 use App\Filament\Resources\TestimonyResource;
 use App\Filament\Resources\SocialMediaResource;
 use App\Filament\Resources\UserResource;
+use App\Filament\Resources\WhatsappResource;
 use Filament\Facades\Filament;
 use Filament\Navigation\NavigationBuilder;
 use Filament\Navigation\NavigationGroup;
@@ -76,6 +77,7 @@ class AppServiceProvider extends ServiceProvider
                     ->collapsible(false)
                     ->items([
                         ...UserResource::getNavigationItems(),
+                        ...WhatsappResource::getNavigationItems(),
                     ])
             ]);
         });

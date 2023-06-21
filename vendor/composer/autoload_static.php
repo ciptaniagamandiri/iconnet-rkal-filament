@@ -432,8 +432,8 @@ class ComposerStaticInit0ef164947dea42b88b871052113c942e
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -756,6 +756,7 @@ class ComposerStaticInit0ef164947dea42b88b871052113c942e
         'AnourValar\\EloquentSerialize\\Package' => __DIR__ . '/..' . '/anourvalar/eloquent-serialize/src/Package.php',
         'AnourValar\\EloquentSerialize\\Service' => __DIR__ . '/..' . '/anourvalar/eloquent-serialize/src/Service.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
+        'App\\Enums\\ProductType' => __DIR__ . '/../..' . '/app/Enums/ProductType.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Filament\\Resources\\AreaResource' => __DIR__ . '/../..' . '/app/Filament/Resources/AreaResource.php',
         'App\\Filament\\Resources\\AreaResource\\Pages\\CreateArea' => __DIR__ . '/../..' . '/app/Filament/Resources/AreaResource/Pages/CreateArea.php',
@@ -808,6 +809,7 @@ class ComposerStaticInit0ef164947dea42b88b871052113c942e
         'App\\Http\\Controllers\\Web\\AreaController' => __DIR__ . '/../..' . '/app/Http/Controllers/Web/AreaController.php',
         'App\\Http\\Controllers\\Web\\FormregistrationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Web/FormregistrationController.php',
         'App\\Http\\Controllers\\Web\\LandingController' => __DIR__ . '/../..' . '/app/Http/Controllers/Web/LandingController.php',
+        'App\\Http\\Controllers\\Web\\RegistrationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Web/RegistrationController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
@@ -833,11 +835,14 @@ class ComposerStaticInit0ef164947dea42b88b871052113c942e
         'App\\Models\\Testimony' => __DIR__ . '/../..' . '/app/Models/Testimony.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\Village' => __DIR__ . '/../..' . '/app/Models/Village.php',
+        'App\\Models\\Watsapp' => __DIR__ . '/../..' . '/app/Models/Watsapp.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
+        'App\\Services\\Watzap' => __DIR__ . '/../..' . '/app/Services/Watzap.php',
+        'App\\View\\Components\\CardProduct' => __DIR__ . '/../..' . '/app/View/Components/CardProduct.php',
         'App\\View\\Components\\Carousel' => __DIR__ . '/../..' . '/app/View/Components/Carousel.php',
         'App\\View\\Components\\Landing\\Pricing' => __DIR__ . '/../..' . '/app/View/Components/Landing/Pricing.php',
         'App\\View\\Components\\Landing\\Testimonial' => __DIR__ . '/../..' . '/app/View/Components/Landing/Testimonial.php',

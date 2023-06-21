@@ -12,6 +12,7 @@
     <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80" alt="" class="h-full w-full object-cover">
 </div>
 <div class="max-w-7xl mx-auto px-10  lg:px-5">
+   
     <div class="py-10 text-center">
         <h3 class="text-2xl font-bold text-gray-900">Form Pendaftaran</h3>
         <p>Isi form pendaftaran di bawah untuk mulai berlangganan</p>
@@ -24,6 +25,7 @@
         location.href = url;
       }
     }">
+      @include('landing.components.registration_message')
         <div class="sm:col-span-3">
             <label class="block text-sm font-medium leading-6 text-gray-900">Nama Lengkap</label>
             <div class="mt-2">

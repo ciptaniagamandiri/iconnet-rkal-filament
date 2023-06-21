@@ -29,3 +29,5 @@ Route::post('/send-otp', [Web\FormregistrationController::class, 'otp'])->name('
 Route::get('fetch/data/kota/{id}', [Web\AreaController::class, 'fetchDataKota'])->name('fetch.data.kota');
 Route::get('fetch/data/kecamatan/{id}', [Web\AreaController::class, 'fetchDataKecamatan'])->name('fetch.data.kecamatan');
 Route::get('fetch/data/kelurahan/{id}', [Web\AreaController::class, 'fetchDataKelurahan'])->name('fetch.data.kelurahan');
+
+Route::get('/product/{product:id}/registration',  [Web\RegistrationController::class, 'registration'])->name('product.registration');

@@ -13,5 +13,6 @@
         @yield('content')
     </div>
     @include('landing.components.footer')
+    @yield('script')
 </body>
 </html>

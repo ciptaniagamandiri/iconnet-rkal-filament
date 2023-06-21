@@ -25,15 +25,15 @@ class Watzap
         return $response;
     }
 
-    public function sendMessage(Request $request)
+    public function sendMessage($phone, $message)
     {
         $response = $response = Http::withHeaders([
             'Content-Type' => 'application/json'
         ])->post(sprintf('%s/send_message', $this->url), [
             "api_key" => $this->token,
             'number_key' => $this->key,
-            'phone_no' => $request->input('phone'),
-            'message' => $request->input('message')
+            'phone_no' =>$phone,
+            'message' => $message
         ]);
 
         return $response;

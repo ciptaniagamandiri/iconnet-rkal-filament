@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Services\Watzap;
+use Illuminate\Support\Facades\Redirect;
 
 class RegistrationController extends Controller
 {
@@ -17,7 +18,12 @@ class RegistrationController extends Controller
         ]);
     }
 
-    public function requestOtp() {
-        return (new Watzap)->status();
+    public function requestOtp(Request $request) {
+        try {
+            $res = (new Watzap)->sendMessage($request->get('phone'), 'testine pesan');
+            return $res;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 }

@@ -46,7 +46,7 @@
             Berbagai paket yang dapat sesuai dengan layanan kebutuhan internet dan multimedia anda.
         </p>
         <div class="mt-20 flow-root">
-            <div class="isolate -mt-16 grid max-w-sm grid-cols-1 gap-y-16 divide-y divide-gray-100 sm:mx-auto lg:-mx-8 lg:mt-0 lg:max-w-none lg:grid-cols-3 lg:divide-x lg:divide-y-0 xl:-mx-4">
+            <div class="isolate -mt-16 grid max-w-sm grid-cols-1 gap-5 divide-y divide-gray-100 sm:mx-auto lg:-mx-8 lg:mt-0 lg:max-w-none lg:grid-cols-4 lg:divide-x lg:divide-y-0 xl:-mx-4">
                 @foreach ($products as $product)
                     <x-CardProduct :product="$product"/>
                 @endforeach

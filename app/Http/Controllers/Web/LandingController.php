@@ -8,21 +8,30 @@ use App\Models\Carousel;
 use App\Models\Blog\Post;
 use App\Models\Product;
 use App\Models\Testimony;
+use Illuminate\Cache\RateLimiting\Limit;
 
 class LandingController extends Controller
 {
     public function index()
     {
-        // $carousels = Carousel::where('status', true)->paginate(10);
-        // $posts = Post::where('is_published', true)->paginate(10);
-        $products = Product::where('status', true)
-            ->where('type', 1)
-            ->paginate(10);
-        // $testimonies = Testimony::where('status', true)->paginate(10);
+        $productQuery = Product::where('status', true)
+            ->limit(16)
+            ->get();
 
-        // $data = compact('carousels', 'posts', 'products', 'testimonies');
+        $products = [];
+        $addons = [];
+
+        foreach ($productQuery as $key => $value) {
+            if($value->type == 1) {
+                $products [] = $value;
+            } else if($value->type == 2) {
+                $addons [] =  $value;
+            }
+        }
+
         return view('landing.index', [
-            'products' => $products
+            'products' => $products,
+            'addons' => $addons,
         ]);
     }
 }

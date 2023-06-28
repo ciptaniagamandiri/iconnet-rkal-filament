@@ -42,28 +42,31 @@ class RegistrationController extends Controller
                 'product' => $request->get('id'),
                 'phone' =>  $request->get('phone')
             ];
-            return redirect()->route('product.registration', $params)->with('otp_success', 'success');
+            
+            if($res['status'] == '1005'){
+                return redirect()->route('product.registration', $params)->with('otp_error', $res['message']);
+            } else {
+                return redirect()->route('product.registration', $params)->with('otp_success', 'success');
+            }
         } catch (\Throwable $th) {
             throw $th;
         }
     }
 
     public function store(Request $request) {
-      
-
-        // $ip = $request->ip();
-        // $request->validate([
-        //     'name' => 'required',
-        //     'address' => 'required',
-        //     'telp' => 'required',
-        //     'idcustomer' => 'required',
-        //     'email' => 'required',
-        //     'coordinate' => 'nullable',
-        //     'product_id' => 'required',
-        //     'nik' => 'required',
-        //     'status' => 'nullable',
-        //     'otp' => 'required'
-        // ]);
+        return $request->all();
+        $request->validate([
+            'name' => 'required',
+            'address' => 'required',
+            'telp' => 'required',
+            'idcustomer' => 'required',
+            'email' => 'required',
+            'coordinate' => 'nullable',
+            'product_id' => 'required',
+            'nik' => 'required',
+            'status' => 'nullable',
+            'otp' => 'required'
+        ]);
 
         // DB::beginTransaction();
 

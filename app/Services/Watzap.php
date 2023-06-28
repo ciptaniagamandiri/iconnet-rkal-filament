@@ -27,6 +27,7 @@ class Watzap
 
     public function sendMessage($phone, $message)
     {
+        
         $response = $response = Http::withHeaders([
             'Content-Type' => 'application/json'
         ])->post(sprintf('%s/send_message', $this->url), [

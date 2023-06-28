@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Web;
+use App\Services\Watzap;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,3 +33,7 @@ Route::get('fetch/data/kelurahan/{id}', [Web\AreaController::class, 'fetchDataKe
 
 Route::get('/product/{product:id}/registration',  [Web\RegistrationController::class, 'registration'])->name('product.registration');
 Route::get('/request/otp', [Web\RegistrationController::class, 'requestOtp'])->name('otp.request');
+
+Route::get('/wa-status', function() {
+    return (new Watzap)->sendMessage('6287704217808', 'test');
+});

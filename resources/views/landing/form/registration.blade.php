@@ -143,8 +143,8 @@
         </div>
         <div>
           <div class="flex space-x-3">
-            <input type="text" id="latitude" class="w-full">
-            <input type="text" id="longitude" class="w-full">
+            <input type="text" id="latitude" name="coordinate[0]" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            <input type="text" id="longitude" name="coordinate[1]" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
           </div>
           <div id="map" class="mt-4 w-full h-[20rem] bg-gray-300"></div>
         </div>
@@ -155,7 +155,6 @@
 </div>
 @endsection
 @section('script')
-  {{-- <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script> --}}
   <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
   <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
@@ -176,12 +175,13 @@
     })
     // Initialize the map
     // Initialize the map
-    var map = L.map("map").setView([-1.241659, 116.853412], 13);
+    var map = L.map("map", {
+      zoomControl: false 
+    }).setView([-1.241659, 116.853412], 13);
 
       // Create the tile layer with your preferred map provider
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution: "&copy; OpenStreetMap contributors",
-       
       }).addTo(map);
 
       // Create a marker with a draggable option
@@ -198,15 +198,19 @@
       marker.on("drag", updateLatLng);
 
       // Initialize the geocoder control
-      var geocoder = L.Control.geocoder().addTo(map);
+      var geocoder = L.Control.geocoder({
+        collapsed: false,
+        placeholder: "Cari lokasi..."
+      }).addTo(map);
 
       // Function to handle the geocode result
       function handleResult(result) {
-        if (result && result.length > 0) {
-          var location = result[0].center;
+        if (result || result.length > 0) {
+          var location = result.center;
           marker.setLatLng(location);
           map.setView(location, 13);
-          updateLatLng();
+          console.log(result);
+          updateLatLng()
         }
       }
 

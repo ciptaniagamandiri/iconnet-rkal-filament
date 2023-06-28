@@ -27,7 +27,6 @@ class RegistrationController extends Controller
     }
 
     public function requestOtp(Request $request) {
-        // return $request->all();
         $otp = rand(100000, 900000);
         $message = sprintf("%s ini adalah kode otp anda, jangan bagikan kode ini kepada siapapun.\n\npesan ini dikirim melalui layanan IconNet", $otp);
         try {
@@ -42,7 +41,7 @@ class RegistrationController extends Controller
                 'product' => $request->get('id'),
                 'phone' =>  $request->get('phone')
             ];
-            
+
             if($res['status'] == '1005'){
                 return redirect()->route('product.registration', $params)->with('otp_error', $res['message']);
             } else {

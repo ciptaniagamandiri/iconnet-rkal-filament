@@ -33,9 +33,6 @@
         </div>
     </div>
 </div>
-<!-- pricing -->
-{{-- <x-landing.pricing /> --}}
-
 <div class="bg-white py-8 sm:py-10 ">
     <div class="mx-auto max-w-7xl px-6 border-b-2 border-dotted pb-10 lg:px-8">
         <div class="mx-auto max-w-4xl sm:text-center">

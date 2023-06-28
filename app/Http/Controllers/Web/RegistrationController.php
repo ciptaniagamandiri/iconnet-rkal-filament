@@ -9,6 +9,7 @@ use App\Models\Whatsapp;
 use App\Models\WhatsappOtp;
 use Illuminate\Http\Request;
 use App\Services\Watzap;
+use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Stevebauman\Location\Facades\Location;
@@ -53,43 +54,44 @@ class RegistrationController extends Controller
     }
 
     public function store(Request $request) {
-        return $request->all();
+
         $request->validate([
             'name' => 'required',
             'address' => 'required',
-            'telp' => 'required',
+            'telp' => 'required|unique:App\Models\Formregistration,telp',
             'idcustomer' => 'required',
             'email' => 'required',
-            'coordinate' => 'nullable',
+            'coordinate' => 'required',
             'product_id' => 'required',
             'nik' => 'required',
             'status' => 'nullable',
-            'otp' => 'required'
+            'otp' => 'required',
+            'file' => 'required'
         ]);
 
-        // DB::beginTransaction();
+        DB::beginTransaction();
 
-        // try {
-        //     $form = new Formregistration;
+        try {
+            $form = new Formregistration;
 
-        //     $form->fill([
-        //         'name'       => $request->name,
-        //         'address'    => $request->address,
-        //         'telp'       => $request->telp,
-        //         'idcustomer' => $request->idcustomer,
-        //         'email'      => $request->email,
-        //         'coordinate' => "coor",
-        //         'product_id' => $request->product_id,
-        //         'nik'        => $request->nik,
-        //         'status'     => 0,
-        //     ]);
+            $form->fill([
+                'name'       => $request->name,
+                'address'    => $request->address,
+                'telp'       => $request->telp,
+                'idcustomer' => $request->idcustomer,
+                'email'      => $request->email,
+                'coordinate' => json_encode($request->coordinate),
+                'product_id' => $request->product_id,
+                'nik'        => $request->nik,
+                'status'     => 0,
+            ]);
 
-        //     $form->save();
-        //     DB::commit();
-        //     return redirect()->back()->with('otp_success', 'success');
-        // } catch (\Throwable $th) {
-        //     throw $th;
-        //     DB::rollBack();
-        // }
+            $form->save();
+            DB::commit();
+            return redirect()->back()->with('register_success', "Success");
+        } catch (\Throwable $th) {
+            throw $th;
+            DB::rollBack();
+        }
     }
 }

@@ -33,7 +33,6 @@ function handleResult(result) {
         var location = result.center;
         marker.setLatLng(location);
         map.setView(location, 13);
-        console.log(result);
         updateLatLng();
     }
 }

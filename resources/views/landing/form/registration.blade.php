@@ -19,22 +19,26 @@
     <form action="{{route('form.store')}}" method="POST" class="max-w-4xl mx-auto space-y-6" x-data="{
       telp: '{{$params['phone']}}',
       otpReq() {
-        var wa = this.telp;
-        var url = '{{route('otp.request')}}'+'?phone='+this.telp;
-        location.href = url+'&id={{$selectedProduct['id']}}';
+        if(this.telp.length > 0){
+          var wa = this.telp;
+          var url = '{{route('otp.request')}}'+'?phone='+this.telp;
+          location.href = url+'&id={{$selectedProduct['id']}}';
+        } else {
+          alert('Nomer tlp kosong.')
+        }
       } 
     }">
       @csrf
       @include('landing.components.registration_message')
         <div class="sm:col-span-3">
-            <label class="block text-sm font-medium leading-6 text-gray-900">No. Telepon </label>
+            <label class="block text-sm font-medium leading-6 text-gray-900">No. Telepon* </label>
             <div class="flex space-x-3">
               <div class="mt-2 flex-1">
                 <input type="text" placeholder="format : 628123456" x-text="telp" x-model="telp" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                 <input type="text" hidden name="telp" x-bind:value="telp">
               </div>
               <div class="flex-shrink-0">
-                <button type="button" @click="otpReq" class="bg-gray-800 p-2 text-[12px] mt-2 text-white rounded-lg">REQUEST OTP</button>
+                <button type="button" @click="otpReq" class="bg-gray-800 p-2 text-[12px] mt-2 text-white rounded-lg" >REQUEST OTP</button>
               </div>
             </div>
             <div class="flex justify-between py-2">
@@ -45,7 +49,7 @@
             </div>
         </div>
         <div class="sm:col-span-3">
-            <label class="block text-sm font-medium leading-6 text-gray-900">Nama Lengkap</label>
+            <label class="block text-sm font-medium leading-6 text-gray-900">Nama Lengkap*</label>
             <div class="mt-2">
               <input type="text" name="name" value="{{old('name')}}"
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
@@ -58,9 +62,9 @@
             </div>
         </div>
         <div class="sm:col-span-3">
-            <label class="block text-sm font-medium leading-6 text-gray-900">Email</label>
+            <label class="block text-sm font-medium leading-6 text-gray-900">Email*</label>
             <div class="mt-2">
-              <input type="text" name="email" value="{{old('email')}}" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              <input type="email" name="email" value="{{old('email')}}" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
               @error('email')
               <div class="flex justify-end py-2">
                   <small class="text-red-400">{{ $message }}</small>
@@ -71,7 +75,7 @@
        
         <div class="flex items-center space-x-3">
           <div class="flex-shrink-1 w-full">
-              <label class="block text-sm font-medium leading-6 text-gray-900">OTP Whatsapp </label>
+              <label class="block text-sm font-medium leading-6 text-gray-900">OTP Whatsapp* </label>
               <div class="mt-2">
                 <input type="text" name="otp"  value="{{old('otp')}}" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
               </div>
@@ -85,7 +89,7 @@
          
         </div>
         <div class="sm:col-span-3">
-            <label class="block text-sm font-medium leading-6 text-gray-900">Alamat</label>
+            <label class="block text-sm font-medium leading-6 text-gray-900">Alamat*</label>
             <div class="mt-2">
               <input type="text" name="address"  value="{{old('address')}}" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
               @error('address')
@@ -96,7 +100,7 @@
             </div>
         </div>
         <div class="sm:col-span-3">
-            <label class="block text-sm font-medium leading-6 text-gray-900">Nomer Pelanggan PLN  </label>
+            <label class="block text-sm font-medium leading-6 text-gray-900">Nomer Pelanggan PLN* </label>
             <div class="mt-2">
               <input type="text" name="idcustomer" value="{{old('idcustomer')}}" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
               @error('idcustomer')
@@ -107,7 +111,7 @@
             </div>
         </div>
         <div class="sm:col-span-3">
-            <label class="block text-sm font-medium leading-6 text-gray-900">NIK KTP </label>
+            <label class="block text-sm font-medium leading-6 text-gray-900">NIK KTP* </label>
             <div class="mt-2">
               <input type="text" name="nik" value="{{old('nik')}}" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
               @error('nik')
@@ -118,7 +122,7 @@
             </div>
         </div>
         <div class="sm:col-span-3">
-            <label class="block text-sm font-medium leading-6 text-gray-900">Foto KTP </label>
+            <label class="block text-sm font-medium leading-6 text-gray-900">Foto KTP* </label>
             <div class="mt-2">
               <input type="file" name="file" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
               @error('file')
@@ -142,9 +146,17 @@
             </div>
         </div>
         <div>
+          <label class="block text-sm font-medium leading-6 text-gray-900">Titik koordinat </label>
           <div class="flex space-x-3">
-            <input type="text" id="latitude" name="coordinate[0]" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-            <input type="text" id="longitude" name="coordinate[1]" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            <div class="w-full">
+              <input type="text" id="latitude" name="coordinate[0]" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
+            <div class="w-full">
+              <input type="text" id="longitude" name="coordinate[1]" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
+          </div>
+          <div class="flex justify-between py-2">
+            <small >Cari alamat pada kolom pencarian dipet atau geser pin untuk menyesuaikan titik* </small>
           </div>
           <div id="map" class="mt-4 w-full h-[20rem] bg-gray-300"></div>
         </div>

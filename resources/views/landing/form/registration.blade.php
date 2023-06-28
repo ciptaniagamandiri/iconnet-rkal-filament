@@ -16,7 +16,7 @@
         <h3 class="text-2xl font-bold text-gray-900">Form Pendaftaran</h3>
         <p>Isi form pendaftaran di bawah untuk mulai berlangganan</p>
     </div>
-    <form action="{{route('form.store')}}" method="POST" class="max-w-lg mx-auto space-y-6" x-data="{
+    <form action="{{route('form.store')}}" method="POST" class="max-w-4xl mx-auto space-y-6" x-data="{
       telp: '{{$params['phone']}}',
       otpReq() {
         var wa = this.telp;
@@ -141,6 +141,13 @@
               </select>
             </div>
         </div>
+        <div>
+          <div class="flex space-x-3">
+            <input type="text" id="latitude" class="w-full">
+            <input type="text" id="longitude" class="w-full">
+          </div>
+          <div id="map" class="mt-4 w-full h-[20rem] bg-gray-300"></div>
+        </div>
         <div class="flex justify-end">
             <button type="submit" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Daftar Layanan </button>
         </div>
@@ -148,8 +155,16 @@
 </div>
 @endsection
 @section('script')
+  {{-- <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script> --}}
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
   <script>
     document.addEventListener('alpine:init', () => {
+      // Initialize the map
+      
+
+      // ALPINE DATA 
         // Alpine.data('dropdown', () => ({
         //     open: false,
  
@@ -159,5 +174,46 @@
         // }))
 
     })
+    // Initialize the map
+    // Initialize the map
+    var map = L.map("map").setView([-1.241659, 116.853412], 13);
+
+      // Create the tile layer with your preferred map provider
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "&copy; OpenStreetMap contributors",
+       
+      }).addTo(map);
+
+      // Create a marker with a draggable option
+      var marker = L.marker([-1.241659, 116.853412], { draggable: true }).addTo(map);
+
+      // Function to update the latitude and longitude inputs
+      function updateLatLng() {
+        var latLng = marker.getLatLng();
+        document.getElementById("latitude").value = latLng.lat.toFixed(6);
+        document.getElementById("longitude").value = latLng.lng.toFixed(6);
+      }
+
+      // Update the inputs when the marker is dragged
+      marker.on("drag", updateLatLng);
+
+      // Initialize the geocoder control
+      var geocoder = L.Control.geocoder().addTo(map);
+
+      // Function to handle the geocode result
+      function handleResult(result) {
+        if (result && result.length > 0) {
+          var location = result[0].center;
+          marker.setLatLng(location);
+          map.setView(location, 13);
+          updateLatLng();
+        }
+      }
+
+      // Listen for geocode result event
+      geocoder.on("markgeocode", function (e) {
+        handleResult(e.geocode);
+      });
+
   </script>
 @endsection

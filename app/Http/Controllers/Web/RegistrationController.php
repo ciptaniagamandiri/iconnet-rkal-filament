@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use App\Services\Watzap;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
-
+use Stevebauman\Location\Facades\Location;
 
 class RegistrationController extends Controller
 {
@@ -49,6 +49,8 @@ class RegistrationController extends Controller
     }
 
     public function store(Request $request) {
+      
+
         // $ip = $request->ip();
         // $request->validate([
         //     'name' => 'required',

@@ -12,25 +12,42 @@
     <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80" alt="" class="h-full w-full object-cover">
 </div>
 <div class="max-w-7xl mx-auto px-10  lg:px-5">
-   
     <div class="py-10 text-center">
         <h3 class="text-2xl font-bold text-gray-900">Form Pendaftaran</h3>
         <p>Isi form pendaftaran di bawah untuk mulai berlangganan</p>
     </div>
     <form action="{{route('form.store')}}" method="POST" class="max-w-lg mx-auto space-y-6" x-data="{
-      phone: null,
+      telp: '{{$params['phone']}}',
       otpReq() {
-        var wa = this.phone;
-        var url = '{{route('otp.request')}}'+'?phone='+this.phone;
-        location.href = url;
-      }
+        var wa = this.telp;
+        var url = '{{route('otp.request')}}'+'?phone='+this.telp;
+        location.href = url+'&id={{$selectedProduct['id']}}';
+      } 
     }">
       @csrf
       @include('landing.components.registration_message')
         <div class="sm:col-span-3">
+            <label class="block text-sm font-medium leading-6 text-gray-900">No. Telepon </label>
+            <div class="flex space-x-3">
+              <div class="mt-2 flex-1">
+                <input type="text" placeholder="format : 628123456" x-text="telp" x-model="telp" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                <input type="text" hidden name="telp" x-bind:value="telp">
+              </div>
+              <div class="flex-shrink-0">
+                <button type="button" @click="otpReq" class="bg-gray-800 p-2 text-[12px] mt-2 text-white rounded-lg">REQUEST OTP</button>
+              </div>
+            </div>
+            <div class="flex justify-between py-2">
+              <small >Nomer telah terdaftar di whatsapp*</small>
+              @error('telp')
+                <small class="text-red-400">{{ $message }}</small>
+              @enderror
+            </div>
+        </div>
+        <div class="sm:col-span-3">
             <label class="block text-sm font-medium leading-6 text-gray-900">Nama Lengkap</label>
             <div class="mt-2">
-              <input type="text" name="name" 
+              <input type="text" name="name" value="{{old('name')}}"
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
             </div>
             <div class="flex justify-between py-2">
@@ -43,7 +60,7 @@
         <div class="sm:col-span-3">
             <label class="block text-sm font-medium leading-6 text-gray-900">Email</label>
             <div class="mt-2">
-              <input type="text" name="name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              <input type="text" name="email" value="{{old('email')}}" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
               @error('email')
               <div class="flex justify-end py-2">
                   <small class="text-red-400">{{ $message }}</small>
@@ -51,36 +68,26 @@
               @enderror
             </div>
         </div>
-        <div class="sm:col-span-3">
-            <label class="block text-sm font-medium leading-6 text-gray-900">No. Telepon </label>
-            <div class="mt-2">
-              <input type="text" name="telp" x-model="phone" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-            </div>
-            <div class="flex justify-between py-2">
-              <small >Nomer telah terdaftar di whatsapp*</small>
-              @error('telp')
-                <small class="text-red-400">{{ $message }}</small>
-              @enderror
-            </div>
-        </div>
+       
         <div class="flex items-center space-x-3">
           <div class="flex-shrink-1 w-full">
               <label class="block text-sm font-medium leading-6 text-gray-900">OTP Whatsapp </label>
               <div class="mt-2">
-                <input type="text" name="telp" placeholder="format : 628123456" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                <input type="text" name="otp"  value="{{old('otp')}}" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
               </div>
               <div class="flex justify-between py-2">
                 <small >Kirim otp melalui input nomer tlp* </small>
+                @error('otp')
+                  <small class="text-red-400">{{ $message }}</small>
+                @enderror
               </div>
           </div>
-          <div class="flex-shrink-0">
-            <button type="button" @click="otpReq" class="bg-gray-800 p-2 text-[12px] mt-2 text-white rounded-lg">REQUEST OTP</button>
-          </div>
+         
         </div>
         <div class="sm:col-span-3">
             <label class="block text-sm font-medium leading-6 text-gray-900">Alamat</label>
             <div class="mt-2">
-              <input type="text" name="address" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              <input type="text" name="address"  value="{{old('address')}}" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
               @error('address')
               <div class="flex justify-end py-2">
                   <small class="text-red-400">{{ $message }}</small>
@@ -91,7 +98,7 @@
         <div class="sm:col-span-3">
             <label class="block text-sm font-medium leading-6 text-gray-900">Nomer Pelanggan PLN  </label>
             <div class="mt-2">
-              <input type="text" name="idcustomer" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              <input type="text" name="idcustomer" value="{{old('idcustomer')}}" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
               @error('idcustomer')
               <div class="flex justify-end py-2">
                   <small class="text-red-400">{{ $message }}</small>
@@ -102,7 +109,7 @@
         <div class="sm:col-span-3">
             <label class="block text-sm font-medium leading-6 text-gray-900">NIK KTP </label>
             <div class="mt-2">
-              <input type="text" name="nik" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              <input type="text" name="nik" value="{{old('nik')}}" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
               @error('nik')
               <div class="flex justify-end py-2">
                   <small class="text-red-400">{{ $message }}</small>
@@ -139,4 +146,18 @@
         </div>
     </form>
 </div>
+@endsection
+@section('script')
+  <script>
+    document.addEventListener('alpine:init', () => {
+        // Alpine.data('dropdown', () => ({
+        //     open: false,
+ 
+        //     toggle() {
+        //         this.open = ! this.open
+        //     }
+        // }))
+
+    })
+  </script>
 @endsection

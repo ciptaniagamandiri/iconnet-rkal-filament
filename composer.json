@@ -17,6 +17,7 @@
         "laravel/tinker": "^2.7",
         "psr/simple-cache": "^2.0",
         "pxlrbt/filament-excel": "^1.1",
+        "stevebauman/location": "^6.6",
         "wireui/heroicons": "^2.4"
     },
     "require-dev": {

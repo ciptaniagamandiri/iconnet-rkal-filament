@@ -25,6 +25,18 @@ class Watzap
         return $response;
     }
 
+    public function groupGrab()
+    {
+        $response = $response = Http::withHeaders([
+            'Content-Type' => 'application/json'
+        ])->post(sprintf('%s/groups', $this->url), [
+            "api_key" => $this->token,
+            "number_key" =>  $this->key
+        ]);
+
+        return $response;
+    }
+
     public function sendMessage($phone, $message)
     {
         
@@ -34,6 +46,21 @@ class Watzap
             "api_key" => $this->token,
             'number_key' => $this->key,
             'phone_no' =>$phone,
+            'message' => $message
+        ]);
+
+        return $response;
+    }
+
+    public function sendMessageGroup($groupId, $message)
+    {
+        
+        $response = $response = Http::withHeaders([
+            'Content-Type' => 'application/json'
+        ])->post(sprintf('%s/send_message_group', $this->url), [
+            "api_key" => $this->token,
+            'number_key' => $this->key,
+            'group_id' =>$groupId,
             'message' => $message
         ]);
 

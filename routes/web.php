@@ -37,3 +37,6 @@ Route::get('/request/otp', [Web\RegistrationController::class, 'requestOtp'])->n
 Route::get('/wa-status', function() {
     return (new Watzap)->sendMessage('6287704217808', 'test');
 });
+Route::get('/wa-group', function() {
+    return (new Watzap)->groupGrab();
+});

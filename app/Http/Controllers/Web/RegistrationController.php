@@ -55,11 +55,6 @@ class RegistrationController extends Controller
 
     public function store(Request $request) {
             
-            // $form = new Formregistration;
-            
-            // return $form->notificationSuccess();
-
-
         $request->validate([
             'name' => 'required',
             'address' => 'required',
@@ -96,7 +91,6 @@ class RegistrationController extends Controller
 
             DB::commit();
             return redirect()->back()->with('register_success', "Success");
-        //    return  $form->notificationSuccess($form);
         } catch (\Throwable $th) {
             throw $th;
             DB::rollBack();

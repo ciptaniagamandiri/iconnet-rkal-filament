@@ -6,9 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Whatsapp;
 use App\Models\WhatsappOtp;
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
 use App\Services\Watzap;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
 
 class RegistrationController extends Controller
 {
@@ -34,5 +35,21 @@ class RegistrationController extends Controller
         } catch (\Throwable $th) {
             throw $th;
         }
+    }
+
+    public function store(Request $request) {
+        $request->validate([
+            'name' => 'required',
+            'address' => 'required',
+            'telp' => 'required',
+            'idcustomer' => 'required',
+            'email' => 'required',
+            'coordinate' => 'required',
+            'product_id' => 'required',
+            'nik' => 'required',
+            'otp' => 'required',
+        ]);
+
+        
     }
 }

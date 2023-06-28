@@ -17,7 +17,7 @@
         <h3 class="text-2xl font-bold text-gray-900">Form Pendaftaran</h3>
         <p>Isi form pendaftaran di bawah untuk mulai berlangganan</p>
     </div>
-    <form action="#" method="POST" class="max-w-lg mx-auto space-y-6" x-data="{
+    <form action="{{route('form.store')}}" method="POST" class="max-w-lg mx-auto space-y-6" x-data="{
       phone: null,
       otpReq() {
         var wa = this.phone;
@@ -25,18 +25,30 @@
         location.href = url;
       }
     }">
+      @csrf
       @include('landing.components.registration_message')
         <div class="sm:col-span-3">
             <label class="block text-sm font-medium leading-6 text-gray-900">Nama Lengkap</label>
             <div class="mt-2">
-              <input type="text" name="name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              <input type="text" name="name" 
+              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
             </div>
-            <small >Nama lengkap sesuai KTP*</small>
+            <div class="flex justify-between py-2">
+              <small >Nama lengkap sesuai KTP*</small>
+              @error('name')
+                <small class="text-red-400">{{ $message }}</small>
+              @enderror
+            </div>
         </div>
         <div class="sm:col-span-3">
             <label class="block text-sm font-medium leading-6 text-gray-900">Email</label>
             <div class="mt-2">
               <input type="text" name="name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              @error('email')
+              <div class="flex justify-end py-2">
+                  <small class="text-red-400">{{ $message }}</small>
+                </div>
+              @enderror
             </div>
         </div>
         <div class="sm:col-span-3">
@@ -44,15 +56,22 @@
             <div class="mt-2">
               <input type="text" name="telp" x-model="phone" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
             </div>
-            <small >Nomer telah terdaftar di whatsapp*</small>
+            <div class="flex justify-between py-2">
+              <small >Nomer telah terdaftar di whatsapp*</small>
+              @error('telp')
+                <small class="text-red-400">{{ $message }}</small>
+              @enderror
+            </div>
         </div>
         <div class="flex items-center space-x-3">
           <div class="flex-shrink-1 w-full">
               <label class="block text-sm font-medium leading-6 text-gray-900">OTP Whatsapp </label>
               <div class="mt-2">
-                <input type="text" name="telp" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                <input type="text" name="telp" placeholder="format : 628123456" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
               </div>
-              <small >Kirim otp melalui input nomer tlp* </small>
+              <div class="flex justify-between py-2">
+                <small >Kirim otp melalui input nomer tlp* </small>
+              </div>
           </div>
           <div class="flex-shrink-0">
             <button type="button" @click="otpReq" class="bg-gray-800 p-2 text-[12px] mt-2 text-white rounded-lg">REQUEST OTP</button>
@@ -62,24 +81,44 @@
             <label class="block text-sm font-medium leading-6 text-gray-900">Alamat</label>
             <div class="mt-2">
               <input type="text" name="address" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              @error('address')
+              <div class="flex justify-end py-2">
+                  <small class="text-red-400">{{ $message }}</small>
+                </div>
+              @enderror
             </div>
         </div>
         <div class="sm:col-span-3">
             <label class="block text-sm font-medium leading-6 text-gray-900">Nomer Pelanggan PLN  </label>
             <div class="mt-2">
               <input type="text" name="idcustomer" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              @error('idcustomer')
+              <div class="flex justify-end py-2">
+                  <small class="text-red-400">{{ $message }}</small>
+                </div>
+              @enderror
             </div>
         </div>
         <div class="sm:col-span-3">
             <label class="block text-sm font-medium leading-6 text-gray-900">NIK KTP </label>
             <div class="mt-2">
               <input type="text" name="nik" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              @error('nik')
+              <div class="flex justify-end py-2">
+                  <small class="text-red-400">{{ $message }}</small>
+                </div>
+              @enderror
             </div>
         </div>
         <div class="sm:col-span-3">
             <label class="block text-sm font-medium leading-6 text-gray-900">Foto KTP </label>
             <div class="mt-2">
-              <input type="file" name="name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              <input type="file" name="file" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              @error('file')
+              <div class="flex justify-end py-2">
+                  <small class="text-red-400">{{ $message }}</small>
+                </div>
+              @enderror
             </div>
         </div>
         <hr class="border-2 border-dotted "/>

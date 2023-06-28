@@ -35,7 +35,7 @@ Route::get('/product/{product:id}/registration',  [Web\RegistrationController::c
 Route::get('/request/otp', [Web\RegistrationController::class, 'requestOtp'])->name('otp.request');
 
 Route::get('/wa-status', function() {
-    return (new Watzap)->sendMessage('6287704217808', 'test');
+    return (new Watzap)->status();
 });
 Route::get('/wa-group', function() {
     return (new Watzap)->groupGrab();

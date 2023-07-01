@@ -3,20 +3,18 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
 use App\Models\Formregistration;
 use App\Models\Product;
-use App\Models\Whatsapp;
 use App\Models\WhatsappOtp;
 use Illuminate\Http\Request;
 use App\Services\Watzap;
-use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redirect;
-use Stevebauman\Location\Facades\Location;
 
 class RegistrationController extends Controller
 {
-    public function registration(Product $product, Request $request) {
+    public function registration(Product $product, Request $request)
+    {
         $listProduct = Product::where('status', 1)->get();
         return view('landing.form.registration', [
             'selectedProduct' => $product,
@@ -27,7 +25,8 @@ class RegistrationController extends Controller
         ]);
     }
 
-    public function requestOtp(Request $request) {
+    public function requestOtp(Request $request)
+    {
         $otp = rand(100000, 900000);
         $message = sprintf("%s ini adalah kode otp anda, jangan bagikan kode ini kepada siapapun.\n\npesan ini dikirim melalui layanan IconNet", $otp);
         try {
@@ -37,13 +36,13 @@ class RegistrationController extends Controller
                 'token' => $otp,
                 'active' => 1,
             ]);
-            
+
             $params = [
                 'product' => $request->get('id'),
-                'phone' =>  $request->get('phone')
+                'phone' => $request->get('phone')
             ];
 
-            if($res['status'] == '1005'){
+            if ($res['status'] == '1005') {
                 return redirect()->route('product.registration', $params)->with('otp_error', $res['message']);
             } else {
                 return redirect()->route('product.registration', $params)->with('otp_success', 'success');
@@ -53,8 +52,11 @@ class RegistrationController extends Controller
         }
     }
 
-    public function store(Request $request) {
-            
+    public function store(Request $request)
+    {
+
+        $whatsappOtp = WhatsappOtp::where('token', $request->otp)->where('number', $request->telp)->first();
+
         $request->validate([
             'name' => 'required',
             'address' => 'required',
@@ -72,28 +74,39 @@ class RegistrationController extends Controller
         DB::beginTransaction();
 
         try {
-            $form = new Formregistration;
+            if ($whatsappOtp) {
+                $form = new Formregistration;
 
-            $form->fill([
-                'name'       => $request->name,
-                'address'    => $request->address,
-                'telp'       => $request->telp,
-                'idcustomer' => $request->idcustomer,
-                'email'      => $request->email,
-                'coordinate' => json_encode($request->coordinate),
-                'product_id' => $request->product_id,
-                'nik'        => $request->nik,
-                'status'     => 0,
-            ]);
+                $form->fill([
+                    'name' => $request->name,
+                    'address' => $request->address,
+                    'telp' => $request->telp,
+                    'idcustomer' => $request->idcustomer,
+                    'email' => $request->email,
+                    'coordinate' => json_encode($request->coordinate),
+                    'product_id' => $request->product_id,
+                    'nik' => $request->nik,
+                    'status' => 0,
+                ]);
 
-            $form->save();
-            $form->notificationSuccess($form);
+                $form->save();
+                $form->notificationSuccess($form);
 
-            DB::commit();
-            return redirect()->back()->with('register_success', "Success");
+                $whatsappOtp->update(['active' => 0]);
+
+                $message = sprintf("Yeay, pemesanan paket internet anda telah kami terima dan akan segera kami proses. terimakasih telah mempercayakan internet anda pada kami. \n\n Salam hangat kami, ICONNET 💌.");
+                (new Watzap)->sendMessage($request->telp, $message);
+                DB::commit();
+                return redirect()->back()->with('register_success', "Success");
+            } else {
+                return redirect()->back()->with('otp_error', 'OTP Tidak sesuai');
+            }
+
         } catch (\Throwable $th) {
-            throw $th;
+            Log::error($th->getMessage());
             DB::rollBack();
+            return redirect()->back()->withErrors(["message" => "Request Failed " . $th->getMessage()]);
+
         }
     }
 }

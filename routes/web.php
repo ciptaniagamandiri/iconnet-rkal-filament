@@ -25,7 +25,6 @@ Route::get('/contact', function () {
     return view('landing.contact');
 })->name('landing.contact');
 Route::post('/form', [Web\RegistrationController::class, 'store'])->name('form.store');
-// Route::post('/send-otp', [Web\FormregistrationController::class, 'otp'])->name('form.otp');
 
 Route::get('fetch/data/kota/{id}', [Web\AreaController::class, 'fetchDataKota'])->name('fetch.data.kota');
 Route::get('fetch/data/kecamatan/{id}', [Web\AreaController::class, 'fetchDataKecamatan'])->name('fetch.data.kecamatan');

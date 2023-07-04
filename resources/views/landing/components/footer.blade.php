@@ -1,17 +1,17 @@
 <footer>
   <div class="bg-white border-t border-gray-200 mt-10">
     <div class="mx-auto w-full px-6 py-12 md:flex md:items-center md:justify-around lg:px-8">
-      <div class="grid grid-cols-1 gap-10 md:order-2 md:grid-cols-2 md:gap-x-20 md:gap-y-4">
-        <a href="#" class="text-gray-500 hover:text-gray-800">
+      <div class="grid grid-cols-1 gap-10 md:order-2 md:grid-cols-4 md:gap-x-20 md:gap-y-4">
+        <a href="{{route('landing.area')}}" class="text-gray-500 hover:text-gray-800">
           Cek Area
         </a>
-        <a href="#" class="text-gray-500 hover:text-gray-800">
+        {{-- <a href="#" class="text-gray-500 hover:text-gray-800">
           Metode Pembayaran
-        </a>
-        <a href="#" class="text-gray-500 hover:text-gray-800">
+        </a> --}}
+        {{-- <a href="#" class="text-gray-500 hover:text-gray-800">
           Tentang Kami
-        </a>
-        <a href="#" class="text-gray-500 hover:text-gray-800">
+        </a> --}}
+        <a href="{{route('landing.contact')}}" class="text-gray-500 hover:text-gray-800">
           Hubungi Kami
         </a>
         <a href="#" class="text-gray-500 hover:text-gray-800">

@@ -1,7 +1,7 @@
 <div>
     <div class="border px-10 py-10 rounded-lg">
         <div class="pb-8"> 
-          <img src="/storage/{{$product->thumbnail}}" class="w-full object-cover mx-auto" >
+          <img src="/storage/{{$product->thumbnail}}" class="w-full max-h-20 object- mx-auto" >
         </div>
         <h3 id="tier-basic" class="text-2xl font-semibold text-brands-primary">{{$product->name}}</h3>
         <p class="mt-3 flex items-baseline gap-x-1">

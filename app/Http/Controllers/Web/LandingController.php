@@ -34,4 +34,13 @@ class LandingController extends Controller
             'addons' => $addons,
         ]);
     }
+
+    public function product() {
+        $productQuery = Product::where('status', true)
+        ->paginate(10);
+
+        return view('landing.product', [
+            'products' => $productQuery 
+        ]);
+    }
 }

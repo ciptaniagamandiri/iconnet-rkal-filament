@@ -48,7 +48,7 @@
                     <x-CardProduct :product="$product"/>
                 @endforeach
             </div>
-        </div
+        </div>
     </div>
 </div>
 <!-- testimonial -->

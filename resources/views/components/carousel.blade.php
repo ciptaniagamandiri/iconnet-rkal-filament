@@ -26,8 +26,8 @@
         }, 5000)
     }
 }" x-init="loop">
-    <div class="lg:h-[80vh] w-full bg-brands-primary/80 overflow-hidden">
-        <img x-bind:src="images[active]['path']" alt="" class="aspect-video lg:h-full lg:w-full">
+    <div class="lg:h-[100vh] w-full bg-brands-primary/80 overflow-hidden">
+        <img x-bind:src="images[active]['path']" alt="" class="aspect-video object-fill lg:h-full lg:w-full">
         <div class="w-full h-full absolute px-5 lg:px-10 z-10 top-0 flex flex-col justify-center">
             <div class="w-full flex justify-between items-center -mt-20 lg:md-0">
                 <button @click="active > 0 ? active = active - 1 : active = 0" class="p-2 md:p-3 bg-white/80 hover:bg-white rounded-full">

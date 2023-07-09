@@ -23,8 +23,9 @@ class AreaController extends Controller
         $dataKecamatan = District::where('regency_id', $kota)->get();
         $dataKelurahan = Village::where('district_id', $kecamatan)->get();
 
+        $condition = $provinsi && $kota && $kecamatan && $kelurahan;
         $areaCoverage = [];
-        if ($provinsi) {
+        if ($condition) {
             $areaCoverage = Area::with('province', 'regency', 'district', 'village')
                 ->where('province_id', 'LIKE', '%' . $provinsi . '%')
                 ->where('regency_id', 'LIKE', '%' . $kota . '%')
@@ -32,11 +33,27 @@ class AreaController extends Controller
                 ->where('village_id', 'LIKE', '%' . $kelurahan . '%')
                 ->get()
                 ->groupBy(['province.name', 'regency.name', 'district.name', 'village.name']);
-        } else {
-            $areaCoverage = Area::get()->groupBy(['province.name', 'regency.name', 'district.name', 'village.name']);
         }
-        // return response()->json($areaCoverage);
-        return view('landing.area', compact('areaCoverage', 'dataProvinsi', 'dataKota', 'dataKecamatan', 'dataKelurahan'));
+
+        $areaKalbar = Regency::where('province_id', 61)->with('area')->whereHas('area', function ($q) {
+            $q->where('status', 1);
+        })->get();
+        $areaKalteng = Regency::where('province_id', 62)->with('area')->whereHas('area', function ($q) {
+            $q->where('status', 1);
+        })->get();
+        $areaKalsel = Regency::where('province_id', 63)->with('area')->whereHas('area', function ($q) {
+            $q->where('status', 1);
+        })->get();
+        $areaKaltim = Regency::where('province_id', 64)->with('area')->whereHas('area', function ($q) {
+            $q->where('status', 1);
+        })->get();
+        $areaKaltara = Regency::where('province_id', 65)->with('area')->whereHas('area', function ($q) {
+            $q->where('status', 1);
+        })->get();
+
+
+
+        return view('landing.area', compact('areaKalbar', 'areaKalteng', 'areaKalsel', 'areaKaltim', 'areaKaltara', 'dataProvinsi', 'dataKota', 'dataKecamatan', 'dataKelurahan', 'condition', 'areaCoverage'));
     }
 
     public function fetchDataKota($id)

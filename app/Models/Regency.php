@@ -12,6 +12,8 @@ namespace App\Models;
 use AzisHapidin\IndoRegion\Traits\RegencyTrait;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\Coverage\Area;
+
 /**
  * Regency Model.
  */
@@ -53,5 +55,10 @@ class Regency extends Model
     public function districts()
     {
         return $this->hasMany(District::class);
+    }
+
+    public function area()
+    {
+        return $this->hasMany(Area::class, 'regency_id', 'id');
     }
 }
